@@ -90,13 +90,13 @@ food_web_plot <- graph_from_data_frame(food_web, directed = TRUE)
 # OPTIONAL: View what igraph didto our data!
 str(food_web_plot)
 
-# Use ggraph to visualize the food web
-food_web_network <- ggraph(food_web_plot) +  # Fruchterman-Reingold layout
-  geom_node_point() +  # Nodes as circles
-  geom_edge_link(aes(alpha = normalized_strength)) +  # Edges scaled by strength
-  geom_node_text(aes(label = name), repel = TRUE, size = 4)   # Node labels
+# Coding for a food web network and save it as an object
+food_web_network <- ggraph(food_web_plot) +  # Calls for a plot using package ggraph
+  geom_node_point() +  # Add a layer to plot our nodes as points 
+  geom_edge_link(aes(alpha = normalized_strength)) +  # Add another layer to plot our links based on normalised_strength
+  geom_node_text(aes(label = name), repel = TRUE, size = 4)   # Lastly, label our nodes!
 
-# Print the food web plot
+# View our plot 
 print(food_web_network)
 
 # Use ggraph to visualize the food web again, but make it prettier
@@ -117,7 +117,7 @@ food_web_network <- ggraph(food_web_plot, layout = 'fr') +  # Fruchterman-Reingo
   labs(title = "Broadstone Stream Food Web")+  # Add title
   theme(plot.title = element_text(hjust = 0.5))  # Center the title
 
-# Print the modified food web plot 
+# View the plot 
 print(food_web_network)
 
 # Save as a png (for a clearer view)
@@ -152,7 +152,7 @@ heatmap_plot <- ggplot(food_web, aes(x = consumer, y = resource, fill = normaliz
     panel.grid = element_blank(), # Removes confusing grid
   ) 
 
-# Print the heatmap
+# View the heatmap
 print(heatmap_plot)
 
 # Convert the ggplot heatmap to an interactive plotly plot
