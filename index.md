@@ -208,7 +208,7 @@ food_web_network <- ggraph(food_web_plot) +  # Calls for a plot using package gg
 # View our plot 
 print(food_web_network)
 ```
-This is what the plot should look like:
+And this, is what the plot looks like:
 
 <center><img src="figures/ugly_food_web.jpeg" alt="Img"></center>
 
@@ -241,9 +241,9 @@ food_web_network <- ggraph(food_web_plot, layout = 'fr') +  # Fruchterman-Reingo
 # View the plot 
 print(food_web_network)
 ```
-`Zoom` into the graph for a clearer view, and it should look like this now. 
+Click `Zoom` in the `Plots` tab for a clearer view, and it should look like this now. 
 
-PICTURE
+<center><img src="figures/pretty_food_web.jpeg" alt="Img"></center>
 
 Pretty interpretable! We can identify **food chains** from our web and locate the **apex predators** –note that some nodes, for example _Corduligester boltonii_ and _Macropelopia nebulosa_ are surrounded by many arrowheads. In addition, most species seem to be rather generalist with many links of low strength, with the exception of _Leuctra nigra_ being the dominant prey for _Siphonoperla torrentium_ and _Dicranotas sp._. 
 
@@ -270,7 +270,7 @@ print(heatmap_plot)
 ```
 And the heat map should look similar to this: 
 
-PICTURE
+<center><img src="figures/ugly_heat_map.jpeg" alt="Img"></center>
 
 We have just created the _most_ basic heatmap! Obviously, **there are some major issues with it** – the labels are horizontal by default on the x axis, the grid doesn’t align with the tiles, and the colours are not distinct enough from each other. We can fix those flaws with more lines of code:
 
@@ -293,7 +293,7 @@ print(heatmap_plot)
 ```
 A neat, readable plot is now ready: 
 
-PICTURE
+<center><img src="figures/pretty_heat_map.jpeg" alt="Img"></center>
 
 Looking at this figure rather than food web network, we now take less effort to notice **which prey species is fed to highest number of predators** e.g. _Leuctra nigra_ (and vice versa) by counting the number of coloured boxes. We can also easily identify **specialist predators**, by looking for predator nodes with few total numbers of boxes that are dominantly red, e.g. _Dicranota sp._ and _Siphonoperla torrentium_. 
 
@@ -310,7 +310,7 @@ interactive_heatmap
 
 Here’s how the labels should show up when you hover over a tile:
 
-PICTURE
+<center><img src="figures/interactive_heat_map.html" alt="Img"></center>
 
 Unfortunately, when converting `ggplot2` heatmap into an interactive object, **not all elements are kept**, e.g. the grey border of the tiles. In fact, there are libraries on R specialised in heatmaps that allows greater freedom in customizations. If you are considering making a more advanced heatmap, libraries like [`heatmaply`](https://github.com/talgalili/heatmaply) might be the perfect tool! 
 
