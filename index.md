@@ -10,7 +10,7 @@ To add images, replace `tutheaderbl1.png` with the file name of any image you up
 
 #### <a href="#section3"> 3. Visualise feeding relations of a food web using `igraph` and `ggraph` package </a>
 
-#### <a href="#section3"> 4. Visualise biomass flow of a food web using `ggplot2`</a>
+#### <a href="#section4"> 4. Visualise biomass flow of a food web using `ggplot2`</a>
 
 
 ### Key Steps you will go through in this tutorial:
@@ -158,7 +158,7 @@ trophic_links <- trophic_links %>%
   # Add predator mass by joining on 'consumer' (predator nodes)
   left_join(node_properties %>% select(node, predator_mass), by = c("consumer" = "node"))
 ```
-Finally, we can calculate \( I \) for each interacting pair (Hint: \( I = \frac{M_j \times N_j}{M_i} \)) only to see the resulting values of \( I \)  are not exactly straightforward. Fortunately, for easier interpretation we can **normalise** \( I \), such that it shows how much biomass one prey node contributes to a given predator species, as a **proportion over the total prey biomass flux to that predator species**. For instance, if a predator-prey pair has a normalised value of 0.1, it means this prey species contributes to 10% of the total biomass making up the predator’s diet. 
+Finally, we can calculate $I$ for each interacting pair (Hint: \( I = \frac{M_j \times N_j}{M_i} \)) only to see the resulting values of \( I \)  are not exactly straightforward. Fortunately, for easier interpretation we can **normalise** $I$, such that it shows how much biomass one prey node contributes to a given predator species, as a **proportion over the total prey biomass flux to that predator species**. For instance, if a predator-prey pair has a normalised value of 0.1, it means this prey species contributes to 10% of the total biomass making up the predator’s diet. 
 
 ```r
 # Calculate and normalise interaction strength
