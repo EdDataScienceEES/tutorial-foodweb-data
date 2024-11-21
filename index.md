@@ -210,7 +210,7 @@ print(food_web_network)
 ```
 This is what the plot should look like:
 
-PICTURE
+<center><img src="figures/ugly_food_web.jpeg" alt="Img"></center>
 
 Pro tip: **Always** click `Zoom` on the `Plot` tab for a clearer view!
 
@@ -329,6 +329,9 @@ We can also provide some useful links, include a contact form and a way to send 
 For more on `ggplot2`, read the official <a href="https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf" target="_blank">ggplot2 cheatsheet</a>.
 
 <hr>
+#### Related tutorials: 
+- [Graphics guide, mostly ggplot2](ase.tufts.edu/bugs/guide/assets/R%20Graphics%20Cookbook.pdf)
+
 <hr>
 
 #### Check out our <a href="https://ourcodingclub.github.io/links/" target="_blank">Useful links</a> page where you can find loads of guides and cheatsheets.
