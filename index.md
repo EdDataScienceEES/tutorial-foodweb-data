@@ -4,13 +4,29 @@ To add images, replace `tutheaderbl1.png` with the file name of any image you up
 
 ### Tutorial Aims
 
-#### <a href="#section1"> 1. The first section</a>
+#### <a href="#section1"> 1. Extract ecological data from external packages</a>
 
-#### <a href="#section2"> 2. The second section</a>
+#### <a href="#section2"> 2. Tidy and calculate ecological data useful for food webs</a>
 
-#### <a href="#section3"> 3. The third section</a>
+#### <a href="#section3"> 3. Visualise feeding relations of a food web using igraph and ggraph package </a>
 
-You can read this text, then delete it and replace it with your text about your tutorial: what are the aims, what code do you need to achieve them?
+#### <a href="#section3"> 4. Visualise biomass flow of a food web using ggplot2 package
+
+
+### Key Steps you will go through in this tutorial:
+
+1.	Download data from cheddar
+
+2.	Subset, extract and modify data using dplyr
+  a.	Combining node and trophic link data from cheddar into long format table
+  b.	Calculating biomass flow and interaction strength
+  
+3.	Visualise feeding relations of a food web using ggraph package
+
+4.	Visualise data as heatmap in ggplot2
+  a.	Using geom_tile as a template
+  b.	Make the heatmap interactive
+
 ---------------------------
 We are using `<a href="#section_number">text</a>` to create anchors within our text. For example, when you click on section one, the page will automatically go to where you have put `<a name="section_number"></a>`.
 
@@ -20,7 +36,9 @@ To create subheadings, you can use `#`, e.g. `# Subheading 1` creates a subheadi
 ## Subheading 2
 ### Subheading 3
 
-This is some introductory text for your tutorial. Explain the skills that will be learned and why they are important. Set the tutorial in context.
+Species interactions in ecosystems form the basis of many ecological studies, but numbers and names alone are often difficult to interpret. When investigating the feeding relations between organisms, ecologists can use food web networks and heatmaps, which best present datasets that include a list of predator (consumer) species, prey (resource) species, and interaction strength (OR, biomass and density). Such visual depiction can be done on RStudio via versatile R packages that allow colourful, customizable presentations of data, including (but not limited to) ggraph and ggplot2.
+
+From this tutorial you will learn how to visualize food webs in two formats, network and heat map, as well as data manipulation required in prior. Both methods of visualisation have its own merits – networks allow easier identification of food chains and trophic levels, while heatmaps focus on displaying interaction strength. 
 
 You can get all of the resources for this tutorial from <a href="https://github.com/ourcodingclub/CC-EAB-tut-ideas" target="_blank">this GitHub repository</a>. Clone and download the repo as a zip file, then unzip it.
 
