@@ -110,37 +110,76 @@ str(trophic_links)
 
 ## 2. Subset, extract and modify data using dplyr 
 
-You can add more text and code, e.g.
+We can now move on to tidy the data frames we have just extracted. If we try run some code, we could gain even deeper understanding of which nodes are present, and between which ones should connections exist. 
 
 ```r
-# Create fake data
-x_dat <- rnorm(n = 100, mean = 5, sd = 2)  # x data
-y_dat <- rnorm(n = 100, mean = 10, sd = 0.2)  # y data
-xy <- data.frame(x_dat, y_dat)  # combine into data frame
+# Let's view what species do we have exactly!
+unique(node_properties$node) 
 ```
-
-Here you can add some more text if you wish.
+There are some producers (`Algae`) and detritus (`CPOM` and `FPOM`) here! I would assume they are resources. Let's see if they are in `trophic_links$resource`.
 
 ```r
-xy_fil <- xy %>%  # Create object with the contents of `xy`
-	filter(x_dat < 7.5)  # Keep rows where `x_dat` is less than 7.5
+unique(trophic_links$resource) 
 ```
-
-And finally, plot the data:
+They don't seem to be! If we run another few lines line to find differences...
 
 ```r
-ggplot(data = xy_fil, aes(x = x_dat, y = y_dat)) +  # Select the data to use
-	geom_point() +  # Draw scatter points
-	geom_smooth(method = "loess")  # Draw a loess curve
+# Create data frames containing characters in nodes' but not 'resources'; and vice versa
+nodes_not_in_resources <- setdiff(unique(node_properties$node), unique(trophic_links$resource))
+resources_not_in_nodes <- setdiff(unique(trophic_links$resource), unique(node_properties$node))
+# And display the result...
+list(Nodes_Not_in_Resources = nodes_not_in_resources,
+  Resources_Not_in_Nodes = resources_not_in_nodes)
+
 ```
 
-At this point it would be a good idea to include an image of what the plot is meant to look like so students can check they've done it right. Replace `IMAGE_NAME.png` with your own image file:
+From the code output, we can tell that the producer (`algae`) and detritus (`CPOM` and `FPOM`) are not recorded as resources in trophic links. This implies our food web will focus on trophic levels from primary consumer onwards. Additionally, we also see invertebrates including _Platambus maculatus_ and _Adicella reducta_ not included in prey, implying such organisms are in the top trophic level.
 
-<center> <img src="{{ site.baseurl }}/IMAGE_NAME.png" alt="Img" style="width: 800px;"/> </center>
+What we still need to know is the **interaction strength** between a predator-prey duo, which, with limited data, can be represented with **biomass flux** instead, estimated by \( I = \frac{M_j \times N_j}{M_i} \)where \( I \) = The interaction strength between predator and prey; \( M_j\) = Mass (or biomass) of the prey species\( N_j\); N_j= Density of the prey species (j) ; \( M_i\): Mass (or biomass) of the predator species (i).
 
-<a name="section1"></a>
+Run the below code (written in our favourite `tidyverse` format) to calculate \( M_j\) * \( N_j\) and \( M_i\) for every node. Please note that at this step, it seems like we are ridiculously assuming each node could be prey and predator simultaneously – even though there are definitely prey-only and predator-only nodes (e.g. `Diptera` and _Platambus maculatus_ we saw from the last step were not found in the list of `resource`) in this ecosystem. But don’t worry, we won’t end up using every value calculated here. At this step we just can’t tell which ones are prey- or predator-only yet since the trophic links are recorded in another data frame. 
 
-## 3. The third section
+```r
+# Calculate biomass (M * N) for prey and keep only mass for predators
+node_properties <- node_properties %>%
+  mutate(
+    prey_biomass = M * N,  # Prey biomass includes mass and density
+    predator_mass = M      # Predator biomass is just the mass
+  ) %>%
+  select(node, prey_biomass, predator_mass)  # Keep only necessary columns 
+```
+Now that we have gotten every node’s prey total biomass and predator biomass, we could assign the values to each corresponding predator-prey pair via joining `node_properties` to `trophic_links` with `dplyr`’s `left_join()`.
+
+```r
+# Joining trophic_links with node_properties
+trophic_links <- trophic_links %>%
+  # Add prey biomass by joining on 'resource' (prey nodes)
+  left_join(node_properties %>% select(node, prey_biomass), by = c("resource" = "node")) %>%
+  # Add predator mass by joining on 'consumer' (predator nodes)
+  left_join(node_properties %>% select(node, predator_mass), by = c("consumer" = "node"))
+```
+Finally, we can calculate \( I \) for each interacting pair (Hint: \( I = \frac{M_j \times N_j}{M_i} \)) only to see the resulting values of \( I \)  are not exactly straightforward. Fortunately, for easier interpretation we can **normalise** \( I \), such that it shows how much biomass one prey node contributes to a given predator species, as a **proportion over the total prey biomass flux to that predator species**. For instance, if a predator-prey pair has a normalised value of 0.1, it means this prey species contributes to 10% of the total biomass making up the predator’s diet. 
+
+```r
+# Calculate and normalise interaction strength
+food_web <- trophic_links %>% # Rename the data frame as it not only contains trophic links now
+  group_by(consumer) %>%  # Normalised strengths are based on single predator 
+  mutate(
+    # Calculate interaction strength (I)
+    interaction_strength = prey_biomass / predator_mass,  
+    # Normalize interaction strength 
+    normalized_strength = interaction_strength / sum(interaction_strength, na.rm = TRUE)
+  ) %>%
+  ungroup()  # Ungroup after calculations to avoid accidental grouping later 
+```
+
+<a name="section3"></a>
+
+## 3.	Visualise data as food web network with `ggraph`
+
+<a name="section4"></a>
+
+## 4.	Visualise data as heatmap with `ggplot2`
 
 More text, code and images.
 
