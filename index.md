@@ -15,27 +15,27 @@ To add images, replace `tutheaderbl1.png` with the file name of any image you up
 
 ### Key Steps you will go through in this tutorial:
 
-1.	Download data from cheddar
+1.	Download data from `cheddar`
 
-2.	Subset, extract and modify data using dplyr
+2.	Subset, extract and modify data using `dplyr`
 
   a.	Combining node and trophic link data from cheddar into long format table
   
   b.	Calculating biomass flow and interaction strength
   
-3.	Visualise feeding relations of a food web using ggraph package
+3.	Visualise feeding relations of a food web using  `ggraph`  package
 
-4.	Visualise data as heatmap in ggplot2
+4.	Visualise data as heatmap in `ggplot2`
 
-  a.	Using geom_tile as a template
+  a.	Using `geom_tile` as a template
   
-  b.	Make the heatmap interactive
+  b.	Make the heatmap interactive with `plotly`
 
 ---------------------------
 
-Species interactions in ecosystems form the basis of many ecological studies, but numbers and names alone are often difficult to interpret. When investigating the feeding relations between organisms, ecologists can use food web networks and heatmaps, which best present datasets that include a list of predator (consumer) species, prey (resource) species, and interaction strength (OR, biomass and density). Such visual depiction can be done on RStudio via versatile R packages that allow colourful, customizable presentations of data, including (but not limited to) ggraph and ggplot2.
+Species interactions in ecosystems form the basis of many ecological studies, but numbers and names alone are often difficult to interpret. When investigating the feeding relations between organisms, ecologists can use **food web networks** and **heatmaps**, which best present datasets that include a list of predator (consumer) species, prey (resource) species, and interaction strength (OR, biomass and density). Such visual depiction can be done on `RStudio` via versatile R packages that allow colourful, customizable presentations of data, including (but not limited to) `ggraph` and `ggplot2`.
 
-From this tutorial you will learn how to visualize food webs in two formats, network and heat map, as well as data manipulation required in prior. Both methods of visualisation have its own merits – networks allow easier identification of food chains and trophic levels, while heatmaps focus on displaying interaction strength. 
+From this tutorial you will learn how to visualize food webs in two formats, **network** and **heat map**, as well as data manipulation required in prior. Both methods of visualisation have its own merits – networks allow easier identification of food chains and trophic levels, while heatmaps focus on displaying interaction strength. 
 
 You can get all of the resources for this tutorial from <a href="https://github.com/EdDataScienceEES/tutorial-keenmustard.git" target="_blank">this GitHub repository</a>. Clone and download the repo as a zip file, then unzip it.
 
@@ -101,7 +101,7 @@ str(node_properties)
 str(trophic_links)
 ```
 
-`node_properties` shows 37 entries of species, along with their mass (M) , density (N), and the taxonomic groups they belong to. According to `properties`, M (mass) and N (density) columns have mg and m-2 (per square meter) as units respectively.
+`node_properties` shows 37 entries of species, along with their mass (`M`) , density (`N`), and the taxonomic groups they belong to. According to `properties`, `M` (mass) and `N` (density) columns have mg and m^-2 (per square meter) as units respectively.
 
 `trophic_links` includes two columns only, with each row being a predator-prey pair. 
 
