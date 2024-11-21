@@ -172,28 +172,159 @@ food_web <- trophic_links %>% # Rename the data frame as it not only contains tr
   ) %>%
   ungroup()  # Ungroup after calculations to avoid accidental grouping later 
 ```
+Great! We’ve now got some neat data ready for visualisation, all in `food_web`.
 
 <a name="section3"></a>
 
 ## 3.	Visualise data as food web network with `ggraph`
 
+The most straightforward and common way to present feeding relationships is to use a **food web network**, with links connecting labelled nodes. To achieve that, we will firstly be using `igraph`, a package that specialises in converting data into network. Run the code below: 
+
+```r
+# Convert our food_web data frame to an igraph object
+food_web_plot <- graph_from_data_frame(food_web, directed = TRUE)
+```
+What we just did was to make a plottable object `food_web_plot using the `igraph` function, `graph_from_data_frame()`. `directed = TRUE` tells `igraph` that the links are **directional** – only ‘ prey to predator ’ is valid, not the other way round. If you are curious, you could see the structure of the plottable `igraph` object with:
+
+```r
+# OPTIONAL: View what igraph did to our data!
+print(food_web_plot)
+```
+A _very_ lengthy output will be returned. Essentially, the object is comprised of: a layout table containing 27 rows and 6 columns (all information from the original table), 3 `ggplot2`-like layers, an a bunch of other properties suited for plotting. This way, our data becomes compatible with the plotting commands we are about to use: 
+
+- `geom_node_point()` :directly identifies nodes from our data and plot them as points
+- `geom_edge_link()`: adds a layer of geometry to represent network links
+
+In a format similar to `ggplot2` plots, we can code for a network to display our feeding relations: 
+
+```r
+# Coding for a food web network and save it as an object
+food_web_network <- ggraph(food_web_plot) +  # Calls for a plot using package ggraph
+  geom_node_point() +  # Add a layer to plot our nodes as points 
+  geom_edge_link(aes(alpha = normalized_strength)) +  # Add another layer to plot our links based on normalised_strength
+  geom_node_text(aes(label = name), repel = TRUE, size = 4)   # Lastly, label our nodes!
+# View our plot 
+print(food_web_network)
+```
+This is what the plot should look like:
+
+PICTURE
+
+Pro tip: **Always** click `Zoom` on the `Plot` tab for a clearer view!
+
+Our plot contains the basic elements – nodes and links… and nothing else. 
+
+But just like a `ggplot2` graph, we can add a few more lines of code to give this crude and unpolished network an upgrade! Currently, the labels are too messy, links lack direction, and the colour intensity of the links is hard to distinguish… 
+
+Let’s run the code below: 
+
+```r
+# Use ggraph to visualize the food web again, but make it prettier
+food_web_network <- ggraph(food_web_plot, layout = 'fr') +  # Fruchterman-Reingold layout tends to cluster interacting species together
+  geom_edge_link(
+    aes(color = normalized_strength), # Plot edges (links) and colour them based on normalized strength
+    arrow = arrow(length = unit(5, "mm"), type = "closed")  # Add arrowheads to show who's predator who's prey
+  ) +  
+  scale_edge_color_gradient(low = "green", high = "red", name = "Normalized Interaction Strength") +  # Customise normalized strength gradient 
+  geom_node_label(
+    aes(label = name), # Instead of adding node circle and labelling text separately, add nodes as rectangular labels directly
+    fill = "white", # Customise box colour to white
+    color = "black", # Customise text colour to black
+    size = 2.5,  # Customise text size
+    label.size = 0.25 # Customise the label's border size
+  ) +  
+  theme_void() +  # Removes the grey panel in the background
+  labs(title = "Broadstone Stream Food Web")+  # Add title
+  theme(plot.title = element_text(hjust = 0.5))  # Center the title
+# View the plot 
+print(food_web_network)
+```
+`Zoom` into the graph for a clearer view, and it should look like this now. 
+
+PICTURE
+
+Pretty interpretable! We can identify **food chains** from our web and locate the **apex predators** –note that some nodes, for example _Corduligester boltonii_ and _Macropelopia nebulosa_ are surrounded by many arrowheads. In addition, most species seem to be rather generalist with many links of low strength, with the exception of _Leuctra nigra_ being the dominant prey for _Siphonoperla torrentium_ and _Dicranotas sp._. 
+
+In case there are still **label overlaps** after zooming, you can always **save the plot as an image** and adjust its width and height. For my sample code, this is my recommended dimensions: `ggsave("food_web_plot.png", plot = food_web_network, width = 15, height = 15, dpi = 300) `. The image `food_web_plot.png` will be saved in the working directory. 
+
 <a name="section4"></a>
 
 ## 4.	Visualise data as heatmap with `ggplot2`
 
-More text, code and images.
+Food web networks give a holistic view of the ecosystem’s feeding relations, but in case you would like to focus more on the **quantitative aspects** of the web, **biomass flow heat map** is the better alternative since it displays interaction strength in a clearer manner compared to a food web network.
 
-This is the end of the tutorial. Summarise what the student has learned, possibly even with a list of learning outcomes. In this tutorial we learned:
+To build a heat map, we can stick to `ggplot2`, using the `geom_tile()` function. It creates rectangular tiles where the fill colour of each tile represents the value of a variable. Each tile corresponds to a specific **pair of variables** on the x and y axes (in our case, the predator and the prey), and the **colour gradient** encodes a **third variable**. Use the code below to build a simple heat map using our `food_web` data frame: 
 
-##### - how to generate fake bivariate data
-##### - how to create a scatterplot in ggplot2
-##### - some of the different plot methods in ggplot2
+```r
+# Build a biomass flow heatmap (predator on horizontal axis, prey on vertical axis, colour represents normalized interaction strength)
+heatmap_plot <- ggplot(food_web, aes(x = consumer, y = resource, fill = normalized_strength)) +
+  geom_tile() + # Add a tile plot layer as the heatmap
+  labs( # Add the title and labels
+    title = "Food Web Heatmap of Interaction Strength",
+    x = "Predator", 
+    y = "Prey")
+# Let's take a look at the heatmap
+print(heatmap_plot) 
+```
+And the heat map should look similar to this: 
+
+PICTURE
+
+We have just created the _most_ basic heatmap! Obviously, **there are some major issues with it** – the labels are horizontal by default on the x axis, the grid doesn’t align with the tiles, and the colours are not distinct enough from each other. We can fix those flaws with more lines of code:
+
+```r
+# Improve the heatmap
+heatmap_plot <- ggplot(food_web, aes(x = consumer, y = resource, fill = normalized_strength)) +
+  geom_tile(color = "#4d4d4d", size = 0.2) + # Colour the border so we can easily count the number of tiles
+  scale_fill_gradient(low = "green", high = "red",# Change to a more distinctive colour gradient
+                      name = "Normalized Interaction Strength")+  # Set the legend title here
+  theme_minimal() + # choose a 
+  labs(title = "Food Web Heatmap of Interaction Strength", # Add the title and labels
+       x = "Predator", y = "Prey") +
+  theme(
+    axis.text.x = element_text(angle = 90, hjust = 1), # Rotate labels such that they don't overlap on the x-axis
+    title = element_text(hjust = 0.5), # Centre the title
+    panel.grid = element_blank(), # Removes confusing grid
+  ) 
+# View the heatmap
+print(heatmap_plot)
+```
+A neat, readable plot is now ready: 
+
+PICTURE
+
+Looking at this figure rather than food web network, we now take less effort to notice **which prey species is fed to highest number of predators** e.g. _Leuctra nigra_ (and vice versa) by counting the number of coloured boxes. We can also easily identify **specialist predators**, by looking for predator nodes with few total numbers of boxes that are dominantly red, e.g. _Dicranota sp._ and _Siphonoperla torrentium_. 
+
+At this point, you might notice there’s still an unsolved problem with this graph – as a reader, we **can’t interpret normalized interaction strengths accurately** based on the colour gradient! 
+
+But here's the trick – convert the heatmap into an **interactive plot** via `plotly`. `plotly` is a data visualization library that enables features like zooming, panning, tooltips, and real-time interactivity. In this tutorial, we will utilize this package to **display normalized strength values when our cursor hovers over the tile**. 
+
+```r
+# Convert the ggplot heatmap to an interactive plotly plot
+interactive_heatmap <- ggplotly(heatmap_plot) 
+# Display the interactive plot
+interactive_heatmap
+```
+
+Here’s how the labels should show up when you hover over a tile:
+
+PICTURE
+
+Unfortunately, when converting `ggplot2` heatmap into an interactive object, **not all elements are kept**, e.g. the grey border of the tiles. In fact, there are libraries on R specialised in heatmaps that allows greater freedom in customizations. If you are considering making a more advanced heatmap, libraries like [`heatmaply`](https://github.com/talgalili/heatmaply) might be the perfect tool! 
+
+**Nonetheless, you have reached the end of the tutorial!** You are now competent in
+
+##### -	Extracting and manipulating ecological data for food web visualisation
+##### -	Visualising food web as networks using `igraph` and `ggraph`
+##### -	Visualising biomass flow with heatmaps using `ggplot2`
+##### -	Using `plotly` to enhance plot display
+
+Happy coding!
+
 
 We can also provide some useful links, include a contact form and a way to send feedback.
 
 For more on `ggplot2`, read the official <a href="https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf" target="_blank">ggplot2 cheatsheet</a>.
-
-Everything below this is footer material - text and links that appears at the end of all of your tutorials.
 
 <hr>
 <hr>
