@@ -310,7 +310,9 @@ interactive_heatmap
 
 Here’s how the labels should show up when you hover over a tile:
 
-<center><img src="figures/interactive_heat_map.html" alt="Img"></center>
+<center>
+  <iframe src="figures/interactive_heat_map.html" width="100%" height="500" frameborder="0"></iframe> 
+</center>
 
 Unfortunately, when converting `ggplot2` heatmap into an interactive object, **not all elements are kept**, e.g. the grey border of the tiles. In fact, there are libraries on R specialised in heatmaps that allows greater freedom in customizations. If you are considering making a more advanced heatmap, libraries like [`heatmaply`](https://github.com/talgalili/heatmaply) might be the perfect tool! 
 
