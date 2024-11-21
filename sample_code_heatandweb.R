@@ -28,9 +28,9 @@ trophic_links <- TLPS(BroadstoneStream) # Extract trophic links (prey-predator i
 properties <- BroadstoneStream[["properties"]] # Extract properties (unit key)
 
 # ALTERNATIVE: To directly access data without cheddar, instead of ("BroadstoneStream"), use the below code:
-node_properties <- read.csv("nodes.csv")   # Extract node properties (species data)
-trophic_links <- read.csv("trophic.links.csv")  # Extract trophic links (prey-predator interactions)
-properties <- read.csv("properties.csv")  # Extract properties (unit key)
+node_properties <- read.csv("broadstonestream_data/nodes.csv")   # Extract node properties (species data)
+trophic_links <- read.csv("broadstonestream_data/trophic_links.csv")  # Extract trophic links (prey-predator interactions)
+properties <- read.csv("broadstonestream_data/properties.csv")  # Extract properties (unit key)
 
 # Examine dataproperties# Examine data structure of node_properties and trophic_links
 str(properties)
