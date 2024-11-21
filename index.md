@@ -293,7 +293,7 @@ print(heatmap_plot)
 ```
 A neat, readable plot is now ready: 
 
-<center><img src="figures/pretty_heat_map.jpeg" alt="Img"></center>
+<center><img src="figures/pretty_heat_map.jpg" alt="Img"></center>
 
 Looking at this figure rather than food web network, we now take less effort to notice **which prey species is fed to highest number of predators** e.g. _Leuctra nigra_ (and vice versa) by counting the number of coloured boxes. We can also easily identify **specialist predators**, by looking for predator nodes with few total numbers of boxes that are dominantly red, e.g. _Dicranota sp._ and _Siphonoperla torrentium_. 
 
