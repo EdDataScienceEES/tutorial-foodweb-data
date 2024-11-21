@@ -39,29 +39,76 @@ From this tutorial you will learn how to visualize food webs in two formats, net
 
 You can get all of the resources for this tutorial from <a href="https://github.com/EdDataScienceEES/tutorial-keenmustard.git" target="_blank">this GitHub repository</a>. Clone and download the repo as a zip file, then unzip it.
 
+Before you dive into this tutorial, it is recommended you are familiar with the [basic dplyr operations]( https://ourcodingclub.github.io/tutorials/data-manip-intro/ ) and [data visualisation]( https://ourcodingclub.github.io/tutorials/datavis/).
+
 <a name="section1"></a>
 
 ## 1. Extract ecological data from external library `cheddar`
 
 
-At the beginning of your tutorial you can ask people to open `RStudio`, create a new script by clicking on `File/ New File/ R Script` set the working directory and load some packages, for example `ggplot2` and `dplyr`. You can surround package names, functions, actions ("File/ New...") and small chunks of code with backticks, which defines them as inline code blocks and makes them stand out among the text, e.g. `ggplot2`.
+To map energy flow or predator-prey interactions in an ecosystem, ecologists often track which species are present, their population density and biomass per capita. We call species, or groups of species involved in the food web ‘nodes’; and links are lines connecting nodes, that indicate a predator-prey relationship. 
 
-When you have a larger chunk of code, you can paste the whole code in the `Markdown` document and add three backticks on the line before the code chunks starts and on the line after the code chunks ends. After the three backticks that go before your code chunk starts, you can specify in which language the code is written, in our case `R`.
+`cheddar` is a package specialised for analysis and visualisation of ecological communities in R, with a few built-in datasets. (For more details on the package, visit its [official repository](https://github.com/quicklizard99/cheddar ).) However, in this tutorial, this package will primarily serve as a portal to the `BroadstoneStream` freshwater dataset from Quantiﬁcation and resolution of a complex, size-structured food web by Woodward, Speirs, and Hildrew (2005). 
 
-To find the backticks on your keyboard, look towards the top left corner on a Windows computer, perhaps just above `Tab` and before the number one key. On a Mac, look around the left `Shift` key. You can also just copy the backticks from below.
+To start off, create a new R script with a few lines of information at the top and you’re good to go (remember to use hasthags # for all annotations).
 
 ```r
-# Set the working directory
-setwd("your_filepath")
+# Visualising Food Webs on R
+# Your name
+# DD/MM/YYYY`
 
-# Load packages
-library(ggplot2)
-library(dplyr)
 ```
+Now, let’s install and load libraries of all packages required in this tutorial, and import the dataset from `cheddar`. 
+
+```r
+# Install arequired packages (omit if you already have them installed)
+install.packages("cheddar") # data and functions for analysing/visualising food web data
+install.packages("tidyverse") # includes data wrangling tools such as dplyr, tidyr
+install.packages("ggplot2") # a useful graphic display tool
+install.packages("igraph") # helps visualise food web network
+install.packages("ggraph") # an extension of ggplot2, creates food web heat map
+
+# Load required libraries
+library(cheddar)
+library(tidyverse) 
+library(ggplot2)
+library(igraph) 
+library(ggraph)
+
+# Obtain the BroadstoneStream dataset from cheddar and save the useful data frames as objects
+data("BroadstoneStream")
+node_properties <- NPS(BroadstoneStream) # Extract node properties (species data)
+trophic_links <- TLPS(BroadstoneStream) # Extract trophic links (prey-predator interactions)
+properties <- BroadstoneStream[["properties"]] # Extract properties (unit key)
+
+```
+Alternatively, if you don’t wish to install `cheddar`, the data frames (nodes.csv and trophiclinks.csv) are included in [this](https://github.com/EdDataScienceEES/tutorial-keenmustard.git) `Github` repository, which also holds this tutorial’s sample script.   
+
+```r
+# ALTERNATIVE: To directly access data without cheddar, instead of ("BroadstoneStream"), use the below code:
+node_properties <- read.csv("broadstonestream_data/nodes.csv")   # Extract node properties (species data)
+trophic_links <- read.csv("broadstonestream_data/trophic_links.csv")  # Extract trophic links (prey-predator interactions)
+properties <- read.csv("broadstonestream_data/properties.csv")  # Extract properties (unit key)
+
+```
+
+There are 3 data frames in total - `trophic_links`,`node properties` and `properties`. `properties` is not required in calculations, but it tells us about the units used. Let’s see what we've got:
+
+```r
+# Examine data properties
+str(properties)
+str(node_properties)
+str(trophic_links)
+```
+
+`node_properties` shows 37 entries of species, along with their mass (M) , density (N), and the taxonomic groups they belong to. According to `properties`, M (mass) and N (density) columns have mg and m-2 (per square meter) as units respectively.
+
+`trophic_links` includes two columns only, with each row being a predator-prey pair. 
+
 
 <a name="section2"></a>
 
-## 2. Tidy and calculate ecological data useful for food webs
+## 2. Subset, extract and modify data using dplyr 
 
 You can add more text and code, e.g.
 

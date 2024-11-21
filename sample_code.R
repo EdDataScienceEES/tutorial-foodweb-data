@@ -32,7 +32,7 @@ node_properties <- read.csv("broadstonestream_data/nodes.csv")   # Extract node 
 trophic_links <- read.csv("broadstonestream_data/trophic_links.csv")  # Extract trophic links (prey-predator interactions)
 properties <- read.csv("broadstonestream_data/properties.csv")  # Extract properties (unit key)
 
-# Examine dataproperties# Examine data structure of node_properties and trophic_links
+# Examine data properties
 str(properties)
 str(node_properties)
 str(trophic_links)
