@@ -42,8 +42,9 @@ Before you dive into this tutorial, it is recommended you are familiar with the 
 
 <a name="section1"></a>
 
-## 1. Extract ecological data from external library `cheddar`
+## 1. Extract, subset and modify data using cheddar and dplyr 
 
+### 1a. Extract ecological data from external library `cheddar`
 
 To map energy flow or predator-prey interactions in an ecosystem, ecologists often track which species are present, their population density and biomass per capita. We call species, or groups of species involved in the food web ‘nodes’; and links are lines connecting nodes, that indicate a predator-prey relationship. 
 
@@ -105,9 +106,7 @@ str(trophic_links)
 `trophic_links` includes two columns only, with each row being a predator-prey pair. 
 
 
-<a name="section2"></a>
-
-## 2. Subset, extract and modify data using dplyr 
+### 1b. Subset, extract and modify data using dplyr 
 
 We can now move on to tidy the data frames we have just extracted. If we try run some code, we could gain even deeper understanding of which nodes are present, and between which ones should connections exist. 
 
@@ -173,9 +172,11 @@ food_web <- trophic_links %>% # Rename the data frame as it not only contains tr
 ```
 Great! We’ve now got some neat data ready for visualisation, all in `food_web`.
 
-<a name="section3"></a>
+<a name="section2"></a>
 
-## 3.	Visualise data as food web network with `ggraph`
+## 2. Visualise feeding relations of a food web using `igraph`, `ggraph` and `ggplot2`
+
+### 2a.	Visualise data as food web network with `ggraph`
 
 The most straightforward and common way to present feeding relationships is to use a **food web network**, with links connecting labelled nodes. To achieve that, we will firstly be using `igraph`, a package that specialises in converting data into network. Run the code below: 
 
@@ -248,7 +249,7 @@ In case there are still **label overlaps** after zooming, you can always **save 
 
 <a name="section4"></a>
 
-## 4.	Visualise data as heatmap with `ggplot2`
+### 2b.	Visualise data as heatmap with `ggplot2`
 
 Food web networks give a holistic view of the ecosystem’s feeding relations, but in case you would like to focus more on the **quantitative aspects** of the web, **biomass flow heat map** is the better alternative since it displays interaction strength in a clearer manner compared to a food web network.
 
@@ -294,6 +295,8 @@ A neat, readable plot is now ready:
 
 Looking at this figure rather than food web network, we now take less effort to notice **which prey species is fed to highest number of predators** e.g. _Leuctra nigra_ (and vice versa) by counting the number of coloured boxes. We can also easily identify **specialist predators**, by looking for predator nodes with few total numbers of boxes that are dominantly red, e.g. _Dicranota sp._ and _Siphonoperla torrentium_. 
 
+### 2c. Making the heatmap plot interactive
+
 At this point, you might notice there’s still an unsolved problem with this graph – as a reader, we **can’t interpret normalized interaction strengths accurately** based on the colour gradient! 
 
 But here's the trick – convert the heatmap into an **interactive plot** via `plotly`. `plotly` is a data visualization library that enables features like zooming, panning, tooltips, and real-time interactivity. In this tutorial, we will utilize this package to **display normalized strength values when our cursor hovers over the tile**. 
@@ -312,6 +315,12 @@ Here’s how the labels should show up when you hover over a tile:
 </center>
 
 Unfortunately, when converting `ggplot2` heatmap into an interactive object, **not all elements are kept**, e.g. the grey border of the tiles. In fact, there are libraries on R specialised in heatmaps that allows greater freedom in customizations. If you are considering making a more advanced heatmap, libraries like [`heatmaply`](https://github.com/talgalili/heatmaply) might be the perfect tool! 
+
+<a href="#section3"></a>
+
+## 3. Building functions for statistical analysis of food web data to investigate keystone species, using `igraph` and base R functions 
+
+
 
 **Nonetheless, you have reached the end of the tutorial!** You are now competent in
 
