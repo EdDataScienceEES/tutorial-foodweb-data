@@ -4,32 +4,29 @@ To add images, replace `tutheaderbl1.png` with the file name of any image you up
 
 ### Tutorial Aims
 
-#### <a href="#section1"> 1. Extract ecological data from external library `cheddar`</a>
+#### <a href="#section1"> 1. Extract and tidy ecological data from external library `cheddar`, and calculate data useful for food webs</a>
 
-#### <a href="#section2"> 2. Tidy and calculate ecological data useful for food webs</a>
+#### <a href="#section2"> 2. Visualise feeding relations and biomass flow of a food web using `igraph`, `ggraph`, and `ggplot2`</a>
 
-#### <a href="#section3"> 3. Visualise feeding relations of a food web using `igraph` and `ggraph` package </a>
-
-#### <a href="#section4"> 4. Visualise biomass flow of a food web using `ggplot2`</a>
+#### <a href="#section3"> 3. Building functions for statistical analysis of food web data to investigate keystone species, using `igraph` and base R functions </a>
 
 
 ### Key Steps you will go through in this tutorial:
 
-1.	Download data from `cheddar`
+1. Extract, subset and modify data using cheddar and dplyr  
+   a. Download data from cheddar  
+   b. Combine node and trophic link data from cheddar into long format table  
+   c. Calculate biomass flow and interaction strength  
 
-2.	Subset, extract and modify data using `dplyr`
+2. Visualise feeding relations of a food web using igraph, ggraph and ggplot2  
+   a. Visualise feeding relationships by ggraphing a network based on igraph object  
+   b. Visualise biomass flow as heatmap in ggplot2 using geom_tile as a template  
+   c. Create an interactive heatmap  
 
-  a.	Combining node and trophic link data from cheddar into long format table
-  
-  b.	Calculating biomass flow and interaction strength
-  
-3.	Visualise feeding relations of a food web using  `ggraph`  package
+3. Develop and apply a function to evaluate the impact of species removal  
+   a. Build functions to simulate secondary extinctions by removing targeted and random species  
+   b. Compare targeted species removal to random removal using a permutation test  
 
-4.	Visualise data as heatmap in `ggplot2`
-
-  a.	Using `geom_tile` as a template
-  
-  b.	Make the heatmap interactive with `plotly`
 
 ---------------------------
 
