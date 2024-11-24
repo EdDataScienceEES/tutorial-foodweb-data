@@ -15,15 +15,15 @@ To add images, replace `tutheaderbl1.png` with the file name of any image you up
 
 ### Key Steps you will go through in this tutorial:
 
-1. Extract, subset and modify data using cheddar and dplyr  
-   a. Download data from cheddar**
-   b. Combine node and trophic link data from cheddar into long format table
+1. Extract, subset and modify data using `cheddar` and `dplyr`  
+   a. Download data from `cheddar`
+   b. Combine node and trophic link data from `cheddar` into long format table
    c. Calculate biomass flow and interaction strength  
 
 
-2. Visualise feeding relations of a food web using igraph, ggraph and ggplot2  
-   a. Visualise feeding relationships by ggraphing a network based on igraph object  
-   b. Visualise biomass flow as heatmap in ggplot2 using geom_tile as a template 
+2. Visualise feeding relations of a food web using `igraph`, `ggraph` and `ggplot2`  
+   a. Visualise feeding relationships by `ggraph`ing a network based on `igraph` object  
+   b. Visualise biomass flow as heatmap in `ggplot2` using `geom_tile` as a template 
    c. Create an interactive heatmap  
 
 
