@@ -29,7 +29,7 @@ To add images, replace `tutheaderbl1.png` with the file name of any image you up
 
 3. Develop and apply a function to evaluate the impact of species removal  
    a. Build functions to simulate secondary extinctions by removing targeted and random species 
-   b. Compare targeted species removal to random removal using a permutation test 
+   b. Compare targeted species removal to random removal using a permutation test
 
 
 ---------------------------
