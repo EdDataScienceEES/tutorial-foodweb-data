@@ -73,7 +73,7 @@ To map energy flow or predator-prey interactions in an ecosystem, ecologists oft
 
 <figure style="text-align: center;">
     <img src="figures/cheddar_use.png" alt="Img">
-    <figcaption>There are many purposes of cheddar, but we will stick to ggplot and ggraph for simplicity today...</figcaption>
+    <figcaption style="color: grey;">There are many purposes of cheddar, but we will stick to ggplot and ggraph for simplicity today...</figcaption>
 </figure>
 
 
