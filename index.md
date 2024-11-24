@@ -143,7 +143,7 @@ where:
 - <i>N<sub>j</sub></i>: Density of the prey species (<i>j</i>)  
 - <i>M<sub>i</sub></i>: Mass (or biomass) of the predator species (<i>i</i>)
 
-Run the below code (written in our favourite `tidyverse` format) to calculate \( M_j\) * \( N_j\) and \( M_i\) for every node. Please note that at this step, it seems like we are ridiculously assuming each node could be prey and predator simultaneously – even though there are definitely prey-only and predator-only nodes (e.g. `Diptera` and _Platambus maculatus_ we saw from the last step were not found in the list of `resource`) in this ecosystem. But don’t worry, we won’t end up using every value calculated here. At this step we just can’t tell which ones are prey- or predator-only yet since the trophic links are recorded in another data frame. 
+Run the below code (written in our favourite tidyverse format) to calculate <i>M<sub>j</sub></i> × <i>N<sub>j</sub></i> and <i>M<sub>i</sub></i> for every node. Please note that at this step, it seems like we are ridiculously assuming each node could be prey and predator simultaneously – even though there are definitely prey-only and predator-only nodes (e.g., Diptera and <i>Platambus maculatus</i> we saw from the last step were not found in the list of resources) in this ecosystem. But don’t worry, we won’t end up using every value calculated here. At this step, we just can’t tell which ones are prey- or predator-only yet since the trophic links are recorded in another data frame.
 
 ```r
 # Calculate biomass (M * N) for prey and keep only mass for predators
@@ -164,7 +164,7 @@ trophic_links <- trophic_links %>%
   # Add predator mass by joining on 'consumer' (predator nodes)
   left_join(node_properties %>% select(node, predator_mass), by = c("consumer" = "node"))
 ```
-Finally, we can calculate $I$ for each interacting pair (Hint: \( I = \frac{M_j \times N_j}{M_i} \)) only to see the resulting values of \( I \)  are not exactly straightforward. Fortunately, for easier interpretation we can **normalise** $I$, such that it shows how much biomass one prey node contributes to a given predator species, as a **proportion over the total prey biomass flux to that predator species**. For instance, if a predator-prey pair has a normalised value of 0.1, it means this prey species contributes to 10% of the total biomass making up the predator’s diet. 
+Finally, we can calculate <i>I</i> for each interacting pair (Hint: <i>I = <sup>M<sub>j</sub> × N<sub>j</sub></sup>/<sub>M<sub>i</sub></sub></i>) only to see the resulting values of <i>I</i> are not exactly straightforward. Fortunately, for easier interpretation, we can normalise <i>I</i>, such that it shows how much biomass one prey node contributes to a given predator species, as a proportion over the total prey biomass flux to that predator species. For instance, if a predator-prey pair has a normalised value of 0.1, it means this prey species contributes to 10% of the total biomass making up the predator’s diet.
 
 ```r
 # Calculate and normalise interaction strength
@@ -192,7 +192,7 @@ The most straightforward and common way to present feeding relationships is to u
 # Convert our food_web data frame to an igraph object
 food_web_plot <- graph_from_data_frame(food_web, directed = TRUE)
 ```
-What we just did was to make a plottable object `food_web_plot using the `igraph` function, `graph_from_data_frame()`. `directed = TRUE` tells `igraph` that the links are **directional** – only ‘ prey to predator ’ is valid, not the other way round. If you are curious, you could see the structure of the plottable `igraph` object with:
+What we just did was to make a plottable object `food_web_plot` using the `igraph` function, `graph_from_data_frame()`. `directed = TRUE` tells `igraph` that the links are **directional** – only ‘ prey to predator ’ is valid, not the other way round. If you are curious, you could see the structure of the plottable `igraph` object with:
 
 ```r
 # OPTIONAL: View what igraph did to our data!
@@ -340,21 +340,24 @@ We are going to find that out in this section by simulating the **effect of spec
 
 Let’s start off by **defining a function** that will allow us to **simulate species removal** and calculate how many species loses all feeding interactions as a result of the removal. A function is essentially a set of logical instructions to perform a specific task. We can define one with the `function()` command.  
 
-Now, we want the function to:  
+Now, we want the function to:
+    
     I. Read our food web plot, and know which species to remove.  
     II. Remove species.  
     III. Identify the species that become disconnected (extinct) as a result of the removal.  
-    IV. Return the number of secondary extinctions.  
+    IV. Return the number of secondary extinctions.
 
-The format of a function is `function(“inputs”){“body”}`, where the inputs specify from which data frames to manipulate, and the body describes the actions of the function.  
+Let's recall how to build a function. The format of a function is `function(“inputs”){“body”}`, where the inputs specify from which data frames to manipulate, and the body describes the actions of the function.  
 
 #### I. Making the function read our food web and know which species to remove  
 
 If we want the function to read our food web, the first thing we should input is obviously our `igraph` object `food_web_plot` that contains all feeding relationships. We also need to tell the function which species to remove, so let’s make another simple object:  
 
+Throughout Section 3 I'll base all statistical calculations and results on _Cordulegaster boltonii_ , but you could always pick your own species instead. 
+
 ```r
 # Define the species to remove 
-target_species <- "Cordulegaster boltonii"
+target_species <- "Cordulegaster boltonii" # Replace Cordulegaster boltonii with the name of your species
 ```
 If your species name is invalid, check if it exists using the below code (replace “`food_web_plot`” with your `igraph` object’s name if necessary):  
 
@@ -363,7 +366,7 @@ species_list <- V(food_web_plot)$name
 print(species_list)
 ```
 Now that we have defined the inputs, we can expect our final function should look like this:  
-<p style="text-align: center;"> `function(“food_web_plot”, “species_to_remove”){…}`  </p>
+<p style="text-align: center;">`function(“food_web_plot”, “species_to_remove”){…}`</p>
 
 #### II. Making the function remove the specified species  
 When asking the function to perform a task, we can tell it to create new objects, that will become the output (or, the intermediate to an output). To remove the species, which is a vertex in the `igraph` object, we can use `delete_vertices` to **overwrite the food web** and turn it into a new object. We can anticipate the first line of our function body going:  
