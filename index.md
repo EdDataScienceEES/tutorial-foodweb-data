@@ -2,7 +2,7 @@
 
 To add images, replace `tutheaderbl1.png` with the file name of any image you upload to your GitHub repository.
 
-## Manipulating, Visualising and Statistically Interpreting Food Webs on R
+## Manipulating, Visualising and Statistically Interpreting Food Web Data on R
 
 ### Tutorial Aims
 
@@ -527,7 +527,7 @@ cat("P-value for the permutation test: ", p_value, "\n")
 ```
 Our p-value is 1, suggesting that removing the target species _Cordulegaster boltonii_ .
 
-But does it mean as an apex predator, _Cordulegaster boltonii_ is not a keystone species? Not necessarily. In fact, very often in freshwater ecosystems,  _Cordulegaster boltonii_ is considered a keystone species. It is most likely still important for other reasons not captured by this particular analysis, like nutrient cycling, population regulation of prey (which are predators of other species); or interactions not directly related to trophic structure. The results do NOT imply that the species can be removed without consequence, as trophic interactions and ecological dynamics might be influenced in more complex, indirect ways that aren't fully captured by this statistical test!
+**But does it mean as an apex predator, _Cordulegaster boltonii_ is not a keystone species?** Not necessarily. In fact, very often in freshwater ecosystems,  _Cordulegaster boltonii_ is considered a keystone species. It is most likely still important for other reasons not captured by this particular analysis, like nutrient cycling, population regulation of prey (which are predators of other species); or interactions not directly related to trophic structure. The results do NOT imply that the species can be removed without consequence, as trophic interactions and ecological dynamics might be influenced in more complex, indirect ways that aren't fully captured by this statistical test!
 
 ---------------------------
 
