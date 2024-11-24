@@ -71,12 +71,12 @@ You can get all of the resources for this tutorial from <a href="https://github.
 
 <p align="center">
   <div style="display:inline-block; text-align:center; width:45%; margin-right: 10px;">
-    <img src="figures/math_network.jpg" width="100%" />
+    <img src="figures/math_network.png" width="100%" />
     <br>
     <em> A network in math, where nodes are called 'vertices', and links are called 'edges', just like how most R functions do. Nykamp DQ, “An introduction to networks.” From Math Insight. http://mathinsight.org/network_introduction</em>
   </div>
   <div style="display:inline-block; text-align:center; width:45%;">
-    <img src="figures/ecology_network.jpg" width="100%" />
+    <img src="figures/ecology_network.png" width="100%" />
     <br>
     <em>A food web network in ecological contexts, where the organisms are nodes. and lines between them indicate feeding relationships. Source: Garrison, J. (2022). Benthic invertebrate food webs in the Baltic Sea: Anthropogenic pressure effects and methodological advancements</em>
   </div>
@@ -191,13 +191,6 @@ And you should be greeted with the below information in the console:
     </tbody>
 </table>
 
-<p>The table above shows 37 species/groups/resource types, along with their mass (M), density (N), and taxonomic groups. According to the data:</p>
-<ul>
-    <li><b>M</b> (mass) is measured in mg (milligrams)</li>
-    <li><b>N</b> (density) is measured in m<sup>-2</sup> (per square meter)</li>
-</ul>
-
-
 
 `node_properties` shows 37 species/groups/resource types, along with their mass (`M`) , density (`N`), and the taxonomic groups they belong to. According to `properties`, `M` (mass) and `N` (density) columns have mg and m<sup>-2</sup> (per square meter) as units respectively.
 
@@ -228,6 +221,12 @@ list(Nodes_Not_in_Resources = nodes_not_in_resources,
   Resources_Not_in_Nodes = resources_not_in_nodes)
 
 ```
+
+| **Category**             | **Nodes**                                                                                              |
+|--------------------------|-------------------------------------------------------------------------------------------------------|
+| **Nodes Not in Resources** | Platambus maculatus, Bezzia sp., Adicella reducta, Pisidium sp., Terrestrial invertebrates, CPOM, FPOM, Leptothrix spp., Algae, Diptera |
+| **Resources Not in Nodes** | None                                                                                                 |
+
 
 From the code output, we can tell that the producer (`algae`) and detritus (`CPOM` and `FPOM`) are not recorded as resources in trophic links. This implies our food web will focus on trophic levels from primary consumer onwards. Additionally, we also see invertebrates including _Platambus maculatus_ and _Adicella reducta_ not included in prey, implying such organisms are in the top trophic level.
 
