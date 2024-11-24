@@ -69,7 +69,13 @@ You can get all of the resources for this tutorial from <a href="https://github.
 
 ### 1a. Extract ecological data from external library `cheddar`
 
-To map energy flow or predator-prey interactions in an ecosystem, ecologists often track which species are present, their population density and biomass per capita. We call species, or groups of species involved in the food web ‘nodes’; and links are lines connecting nodes, that indicate a predator-prey relationship. 
+To map energy flow or predator-prey interactions in an ecosystem, ecologists often track which species are present, their population density and biomass per capita. **We call species, or groups of species involved in the food web nodes**; and **links are lines connecting nodes, that indicate a predator-prey relationship**. 
+
+<figure style="text-align: center;">
+    <img src="figures/cheddar_use.png" alt="Img">
+    <figcaption>There are many purposes of cheddar, but we will stick to ggplot and ggraph for simplicity today...</figcaption>
+</figure>
+
 
 `cheddar` is a package specialised for analysis and visualisation of ecological communities in R, with a few built-in datasets. (For more details on the package, visit its [official repository](https://github.com/quicklizard99/cheddar ).) However, in this tutorial, this package will primarily serve as a portal to the `BroadstoneStream` freshwater dataset from _Quantiﬁcation and resolution of a complex, size-structured food web_ by Woodward, Speirs, and Hildrew (2005). 
 
