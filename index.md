@@ -320,14 +320,199 @@ Unfortunately, when converting `ggplot2` heatmap into an interactive object, **n
 
 ## 3. Building functions for statistical analysis of food web data to investigate keystone species, using `igraph` and base R functions 
 
+In ecology, **trophic isolations** occur when the removal of one species leads to the disconnection of other species from the food web, disrupting the flow of energy. 
 
+This can lead to overpopulation of prey species, potentially causing overgrazing, resource depletion, and competitive imbalances, which negatively impact ecosystem stability and biodiversity. Possibly, chain reaction of changes in population sizes or behaviours across multiple trophic levels arise, and we call it **trophic cascade** .
+
+Remember _Corduligester boltonii_ and _Macropelopia nebulosa_ with many connections in the food chain – can we expect them to be a particularly important species? If it is gone, will it lead to grand scale trophic cascade?  
+
+We are going to find that out in this section by simulating the **effect of species removal on trophic isolation**. The more species isolated when a top predator is removed, the greater the risk of disrupting ecosystem stability and function.  
+
+### 3a. Preparing a Function for Species Removal Simulations
+
+Let’s start off by **defining a function** that will allow us to **simulate species removal** and calculate how many species loses all feeding interactions as a result of the removal. A function is essentially a set of logical instructions to perform a specific task. We can define one with the `function()` command.  
+
+Now, we want the function to:  
+    I. Read our food web plot, and know which species to remove.  
+    II. Remove species.  
+    III. Identify the species that become disconnected (extinct) as a result of the removal.  
+    IV. Return the number of secondary extinctions.  
+
+The format of a function is `function(“inputs”){“body”}`, where the inputs specify from which data frames to manipulate, and the body describes the actions of the function.  
+
+#### I. Making the function read our food web and know which species to remove  
+
+If we want the function to read our food web, the first thing we should input is obviously our `igraph` object `food_web_plot` that contains all feeding relationships. We also need to tell the function which species to remove, so let’s make another simple object:  
+
+```r
+# Define the species to remove 
+target_species <- "Cordulegaster boltonii"
+```
+If your species name is invalid, check if it exists using the below code (replace “`food_web_plot`” with your `igraph` object’s name if necessary):  
+
+```r
+species_list <- V(food_web_plot)$name
+print(species_list)
+```
+Now that we have defined the inputs, we can expect our final function should look like this:  
+<p style="text-align: center;"> `function(“food_web_plot”, “species_to_remove”){…}`  </p>
+
+#### II. Making the function remove the specified species  
+When asking the function to perform a task, we can tell it to create new objects, that will become the output (or, the intermediate to an output). To remove the species, which is a vertex in the `igraph` object, we can use `delete_vertices` to **overwrite the food web** and turn it into a new object. We can anticipate the first line of our function body going:  
+
+<p style="text-align: center;">`new_network <- delete_vertices(food_web_plot, target_species)`</p>
+
+#### III. Identify the species that become extinct as a result of the removal  
+For the computer this can be further chopped into 2 steps – counting the number of intact links left and finding the species with no more intact links. Let’s go with:  
+
+<p style="text-align: center;">isolated_species <- V(new_network)$name[degree(new_network, mode = "all") == 0]</p>
+
+-	`V()` allows access to vertices in `new_network`
+-	`degree(new_network, mode = "all")` calculates the number of connections for all nodes in the `new_network`
+-	`mode = "all"` specifies to measure both incoming and outgoing connections. 
+-	`== 0` sorts out which node has `0` connections.  
+
+#### IV. Let the function tell us about how it goes  
+
+Lastly, the function should give an output that _we_ can read. Let’s create one more object to contain everything we would like to know – how many species became isolated when the selected species, _Cordulegaster boltonii_, is removed?  
+
+The final chunk of the body would be:  
+
+`# Return the number of trophic isolations and species names`
+  `tibble(`
+    `removed_species = unlist(target_species),  # Using list to keep species name(s) in a list format`
+    `isolated_species = unlist(isolated_species),  # Store isolated species names`
+    `trophic_isolations = length(isolated_species),`
+    `remaining_species = vcount(new_network))`
+
+-	A `tibble` data frame will be formed, showing **which species was removed, which species was isolated as a result, how many species went extinct, how many are left**.  
+-	When we want to display the species name that originates from the igraph object (which is comprised of lists, as we discovered in , `unlist()`ensures each list is converted to a character vector. 
+-	Both `length()` and `vcount()` returns the number of items, but `vcount()`is a function from the `igraph` package specialised for counting items in `igraph` objects. 
+
+Now, combine all the body lines into the `{}` bracket and there we go:  
+
+```r
+# Function to calculate secondary extinctions
+calculate_trophic_isolations <- function(food_web_plot, target_species) {
+  # Remove the target species
+  new_network <- delete_vertices(food_web_plot, target_species)
+  
+  # Identify species that are disconnected and thus 'isolated'
+  isolated_species <- V(new_network)$name[degree(new_network, mode = "all") == 0]
+  
+  # Return the number of trophic isolations and species names
+  tibble(
+    removed_species = unlist(target_species),  # Using list to keep species name(s) in a list format
+    isolated_species = unlist(isolated_species),  # Store isolated species names
+    trophic_isolations = length(isolated_species),
+    remaining_species = vcount(new_network)
+  )
+}
+```
+### 3b. Simulation of species removal to measure ecosystem impacts
+
+In the last part, we have already defined which species to remove. Everything is ready. To start the simulation, all we’ve got to do is run the function now!
+
+```r
+# Call the function now and save results as a new object
+result <- calculate_secondary_extinctions(food_web_plot, target_species)
+print(result)
+```
+
+The output should look like this:
+
+[TABLE]
+
+When _Cordulegaster boltonii_ is removed, 2 species, _Asellus meridianus_ and _Paraleptophlebia submarginata_ become isolated from the food web. The food web now only has 26 species remaining.
+
+**Species with higher centrality to have a greater influence on the overall ecosystem** – their removal is likely to trigger a more significant cascading effect throughout the food web. So, how significant exactly is ‘2 trophic isolations’ ? 
+
+### 3c. Evaluation of keystone species hypothesis using statistical analyses
+
+The last step is to determine **whether our target species has caused _significantly_ more species to disconnect from our food web**, compared to the average value of removing another random species. 
+
+Since we only calculated trophic isolations for 1 target species, and our food web is quite small, we won’t be able to use parametric tests like t-tests. Instead, we can run **non-parametric tests** that doesn’t don’t assume normality or equal variances, such as the **permutation test**. 
+
+Basically, it **shuffles** the data – in our case, randomly chooses a species to remove and calculating secondary extinctions for each shuffle. This randomization process is then going to be performed many times, break any non-random patterns and form a **null distribution.** Again, we have to build functions to perform the test. We want it to 
+    I.	Run 1000 randomized trials
+    II.	For each trial, randomly select 1 species only
+    III.	 Calculate secondary extinctions when the random species is removed
+
+#### I. Run 1000 randomized trials
+
+Each time you run a function that randomly selects its inputs, the output varies. Therefore, before we begin with the function, we can set a **seed** so we could revisit our results with the exact same null distribution, using `set.seed(). 
+
+Here’s a code snippet to show the magic of `set.seed()`. Try run it yourself!
+
+```r
+set.seed(123)  # Initial seed
+random_numbers_1 <- sample(1:100, 5) 
+print(random_numbers_1)
+# If you run the same code later and set the seed to 123 again:
+set.seed(123)  # Use the same seed
+random_numbers_2 <- sample(1:100, 5)
+print(random_numbers_2)
+```
+You’ll notice that`random_numbers_1` is the same as `random_numbers_2`! Setting a seed is optional, but it increases reproducibility. 
+Finally, going back to our main objective – we need to tell R to execute the task 1000 times. We can use `replicate(“number of replicates”, {“tasks”})` for repeating tasks. 
+Our code will start with something like this: 
+
+<p style="text-align: center;">`replicate(1000, {}`</p>
+
+#### II. Randomly select 1 species only
+
+Time to start off the body (`{}`) of our `replicate()` function. If we are tasking R to **randomly select figures or characters** from an existing data frame, we can use `sample(“data”, “number of samples”)`. 
+
+Let’s make the first line of our body:
+
+<p style="text-align: center;">`random_species <- sample(V(food_web_plot)$name, 1)`</p>
+
+We are trying to define `random_species`, i.e. tell the function which species to choose remove from the food web in the simulation. Here we allow the function to access our `igraph` object `food_weeb_plot`’s vertice (nodes) and pick 1 random name out of it. In the 1000 simulation runs, each `random_species` will be picked independently. 
+
+#### III.	Calculate trophic isolations when the random species is removed
+
+Finally, we calculate the number of secondary extinctions. (Sounds familiar? Because we have already done that in 3a.) 
+
+For the final line of the permutation test function, insert the function for secondary extinctions when target species is removed `calculate_trophic_isolations()`– but change it up slightly. 
+
+1.	Instead of `targeted_species`, replace the input with `random_species` we defined in the last step.
+2.	Extract the trophic isolations data from the `tibble` output of `calculate_trophic_isolations()`
+
+<p style="text-align: center;">`calculate_trophic_isolations(food_web_plot, random_species)$trophic_isolations `</p>
+
+For a complete block of code that generates null distribution for random species removal, let’s stitch the pieces together:
+
+```r
+# Generate null distribution…
+# We want 1000 random trials
+null_distribution <- replicate(1000, { 
+  # Randomly select 1 species only for each trial
+  random_species <- sample(V(food_web_plot)$name, 1)
+  # Calculate trophic isolation for the random species
+  calculate_trophic_isolation(food_web_plot, random_species)$trophic_isolations
+})
+```
+Last but not least, to statistically determine the significance of our results, run a very simple statistical test to obtain a **p-value**. 
+
+```r
+# Calculate the p-value
+p_value <- mean(null_distribution >= observed_trophic_isolations)
+# Print the p-value
+cat("P-value for the permutation test: ", p_value, "\n")
+```
+Our p-value is 1, suggesting that removing the target species _Cordulegaster boltonii_ 
+But does it mean as an apex predator, _Cordulegaster boltonii_ is not a keystone species? Not necessarily. It might still be important for other reasons not captured by this particular analysis, like nutrient cycling, pollination, or interactions not directly related to trophic structure. 
+
+---------------------------
 
 **Nonetheless, you have reached the end of the tutorial!** You are now competent in
 
 ##### -	Extracting and manipulating ecological data for food web visualisation
 ##### -	Visualising food web as networks using `igraph` and `ggraph`
 ##### -	Visualising biomass flow with heatmaps using `ggplot2`
-##### -	Using `plotly` to enhance plot display
+##### -	Using `plotly` to enhance plot interactiveness
+##### - Building functions that can tamper with `igraph` objects to simulate effect of species removal on food web
+##### - Building functions to conduct permutation test to determine whether a species is significantly more influential than another, based on number of trophic isolations caused upon removal
 
 Happy coding!
 
