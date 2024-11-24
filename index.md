@@ -148,7 +148,7 @@ str(trophic_links)
 And you should be greeted with the below information in the console: 
 
 <table style="width:100%; border: 1px solid black; border-collapse: collapse;">
-    <caption style="font-weight: bold; text-align: center;">Node Properties Overview</caption>
+    <caption style="font-weight: bold; text-align: center;">Data Properties Overview</caption>
     <thead>
         <tr>
             <th>Species/Group</th>
@@ -197,7 +197,6 @@ And you should be greeted with the below information in the console:
     <li><b>N</b> (density) is measured in m<sup>-2</sup> (per square meter)</li>
 </ul>
 
-<p><b>Trophic Links</b> in the dataset include two columns: <i>resource</i> and <i>consumer</>, with each row representing a predator-prey pair.</p>
 
 
 `node_properties` shows 37 species/groups/resource types, along with their mass (`M`) , density (`N`), and the taxonomic groups they belong to. According to `properties`, `M` (mass) and `N` (density) columns have mg and m<sup>-2</sup> (per square meter) as units respectively.
