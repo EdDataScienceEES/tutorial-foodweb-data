@@ -2,7 +2,7 @@
 
 To add images, replace `tutheaderbl1.png` with the file name of any image you upload to your GitHub repository.
 
-<h1 style="text-align: center;">Manipulating, Visualising and Statistically Interpreting Food Webs on R</strong></h1>
+## Manipulating, Visualising and Statistically Interpreting Food Webs on R
 
 ### Tutorial Aims
 
