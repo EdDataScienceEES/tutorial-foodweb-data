@@ -365,18 +365,18 @@ If your species name is invalid, check if it exists using the below code (replac
 species_list <- V(food_web_plot)$name
 print(species_list)
 ```
-Now that we have defined the inputs, we can expect our final function should look like this:  
-<p style="text-align: center;">`function(“food_web_plot”, “species_to_remove”){…}`</p>
+Now that we have defined the inputs, we can expect our function structure to look like this:  
+<p style="text-align: center;"><code>function("food_web_plot", "species_to_remove"){…}</code></p>
 
 #### II. Making the function remove the specified species  
 When asking the function to perform a task, we can tell it to create new objects, that will become the output (or, the intermediate to an output). To remove the species, which is a vertex in the `igraph` object, we can use `delete_vertices` to **overwrite the food web** and turn it into a new object. We can anticipate the first line of our function body going:  
 
-<p style="text-align: center;">`new_network <- delete_vertices(food_web_plot, target_species)`</p>
+<p style="text-align: center;"><code>new_network <- delete_vertices(food_web_plot, target_species)</code></p>
 
 #### III. Identify the species that become extinct as a result of the removal  
 For the computer this can be further chopped into 2 steps – counting the number of intact links left and finding the species with no more intact links. Let’s go with:  
 
-<p style="text-align: center;">isolated_species <- V(new_network)$name[degree(new_network, mode = "all") == 0]</p>
+<p style="text-align: center;"><code>isolated_species <- V(new_network)$name[degree(new_network, mode = "all") == 0]</code></p>
 
 -	`V()` allows access to vertices in `new_network`
 -	`degree(new_network, mode = "all")` calculates the number of connections for all nodes in the `new_network`
@@ -389,12 +389,18 @@ Lastly, the function should give an output that _we_ can read. Let’s create on
 
 The final chunk of the body would be:  
 
-`# Return the number of trophic isolations and species names`
-  `tibble(`
-    `removed_species = unlist(target_species),  # Using list to keep species name(s) in a list format`
-    `isolated_species = unlist(isolated_species),  # Store isolated species names`
-    `trophic_isolations = length(isolated_species),`
-    `remaining_species = vcount(new_network))`
+<p style="text-align: center;">
+<pre><code>
+# Return the number of trophic isolations and species names
+tibble(
+    removed_species = unlist(target_species),  # Using list to keep species name(s) in a list format
+    isolated_species = unlist(isolated_species),  # Store isolated species names
+    trophic_isolations = length(isolated_species),
+    remaining_species = vcount(new_network)
+)
+</code></pre>
+</p>
+
 
 -	A `tibble` data frame will be formed, showing **which species was removed, which species was isolated as a result, how many species went extinct, how many are left**.  
 -	When we want to display the species name that originates from the igraph object (which is comprised of lists, as we discovered in , `unlist()`ensures each list is converted to a character vector. 
@@ -432,7 +438,11 @@ print(result)
 
 The output should look like this:
 
-[TABLE]
+| removed_species         | isolated_species             | trophic_isolations | remaining_species |
+|-------------------------|------------------------------|--------------------|-------------------|
+| Cordulegaster boltonii  | Paraleptophlebia subm.       | 2                  | 26                |
+| Cordulegaster boltonii  | Asellus meridianus           | 2                  | 26                |
+
 
 When _Cordulegaster boltonii_ is removed, 2 species, _Asellus meridianus_ and _Paraleptophlebia submarginata_ become isolated from the food web. The food web now only has 26 species remaining.
 
@@ -451,7 +461,7 @@ Basically, it **shuffles** the data – in our case, randomly chooses a species 
 
 #### I. Run 1000 randomized trials
 
-Each time you run a function that randomly selects its inputs, the output varies. Therefore, before we begin with the function, we can set a **seed** so we could revisit our results with the exact same null distribution, using `set.seed(). 
+Each time you run a function that randomly selects its inputs, the output varies. Therefore, before we begin with the function, we can set a **seed** so we could revisit our results with the exact same null distribution, using `set.seed()`. 
 
 Here’s a code snippet to show the magic of `set.seed()`. Try run it yourself!
 
@@ -468,7 +478,7 @@ You’ll notice that`random_numbers_1` is the same as `random_numbers_2`! Settin
 Finally, going back to our main objective – we need to tell R to execute the task 1000 times. We can use `replicate(“number of replicates”, {“tasks”})` for repeating tasks. 
 Our code will start with something like this: 
 
-<p style="text-align: center;">`replicate(1000, {}`</p>
+<p style="text-align: center;"><code>replicate(1000, { ... })</code></p>
 
 #### II. Randomly select 1 species only
 
@@ -476,20 +486,20 @@ Time to start off the body (`{}`) of our `replicate()` function. If we are taski
 
 Let’s make the first line of our body:
 
-<p style="text-align: center;">`random_species <- sample(V(food_web_plot)$name, 1)`</p>
+<p style="text-align: center;"><code>random_species <- sample(V(food_web_plot)$name, 1)</code></p>
 
 We are trying to define `random_species`, i.e. tell the function which species to choose remove from the food web in the simulation. Here we allow the function to access our `igraph` object `food_weeb_plot`’s vertice (nodes) and pick 1 random name out of it. In the 1000 simulation runs, each `random_species` will be picked independently. 
 
 #### III.	Calculate trophic isolations when the random species is removed
 
-Finally, we calculate the number of secondary extinctions. (Sounds familiar? Because we have already done that in 3a.) 
+Finally, we calculate the number of secondary extinctions. Sounds familiar? Because we have already done something similar in 3a.
 
 For the final line of the permutation test function, insert the function for secondary extinctions when target species is removed `calculate_trophic_isolations()`– but change it up slightly. 
 
 1.	Instead of `targeted_species`, replace the input with `random_species` we defined in the last step.
 2.	Extract the trophic isolations data from the `tibble` output of `calculate_trophic_isolations()`
 
-<p style="text-align: center;">`calculate_trophic_isolations(food_web_plot, random_species)$trophic_isolations `</p>
+<p style="text-align: center;"><code>calculate_trophic_isolations(food_web_plot, random_species)$trophic_isolations</code></p>
 
 For a complete block of code that generates null distribution for random species removal, let’s stitch the pieces together:
 
@@ -511,8 +521,9 @@ p_value <- mean(null_distribution >= observed_trophic_isolations)
 # Print the p-value
 cat("P-value for the permutation test: ", p_value, "\n")
 ```
-Our p-value is 1, suggesting that removing the target species _Cordulegaster boltonii_ 
-But does it mean as an apex predator, _Cordulegaster boltonii_ is not a keystone species? Not necessarily. It might still be important for other reasons not captured by this particular analysis, like nutrient cycling, pollination, or interactions not directly related to trophic structure. 
+Our p-value is 1, suggesting that removing the target species _Cordulegaster boltonii_ .
+
+But does it mean as an apex predator, _Cordulegaster boltonii_ is not a keystone species? Not necessarily. In fact, very often in freshwater ecosystems,  _Cordulegaster boltonii_ is considered a keystone species. It is most likely still important for other reasons not captured by this particular analysis, like nutrient cycling, population regulation of prey (which are predators of other species); or interactions not directly related to trophic structure. The results do NOT imply that the species can be removed without consequence, as trophic interactions and ecological dynamics might be influenced in more complex, indirect ways that aren't fully captured by this statistical test!
 
 ---------------------------
 
