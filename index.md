@@ -20,10 +20,12 @@ To add images, replace `tutheaderbl1.png` with the file name of any image you up
    b. **Combine node and trophic link data from cheddar into long format table**  
    c. **Calculate biomass flow and interaction strength  **
 
+
 2. Visualise feeding relations of a food web using igraph, ggraph and ggplot2  
    a. **Visualise feeding relationships by ggraphing a network based on igraph object  **
    b. **Visualise biomass flow as heatmap in ggplot2 using geom_tile as a template ** 
    c. **Create an interactive heatmap  **
+
 
 3. Develop and apply a function to evaluate the impact of species removal  
    a. **Build functions to simulate secondary extinctions by removing targeted and random species**  
