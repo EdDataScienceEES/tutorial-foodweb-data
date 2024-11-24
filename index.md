@@ -14,18 +14,18 @@ To add images, replace `tutheaderbl1.png` with the file name of any image you up
 ### Key Steps you will go through in this tutorial:
 
 1. Extract, subset and modify data using cheddar and dplyr  
-   a. Download data from cheddar  
-   b. Combine node and trophic link data from cheddar into long format table  
-   c. Calculate biomass flow and interaction strength  
+   a. **Download data from cheddar**
+   b. **Combine node and trophic link data from cheddar into long format table**  
+   c. **Calculate biomass flow and interaction strength  **
 
 2. Visualise feeding relations of a food web using igraph, ggraph and ggplot2  
-   a. Visualise feeding relationships by ggraphing a network based on igraph object  
-   b. Visualise biomass flow as heatmap in ggplot2 using geom_tile as a template  
-   c. Create an interactive heatmap  
+   a. **Visualise feeding relationships by ggraphing a network based on igraph object  **
+   b. **Visualise biomass flow as heatmap in ggplot2 using geom_tile as a template ** 
+   c. **Create an interactive heatmap  **
 
 3. Develop and apply a function to evaluate the impact of species removal  
-   a. Build functions to simulate secondary extinctions by removing targeted and random species  
-   b. Compare targeted species removal to random removal using a permutation test  
+   a. **Build functions to simulate secondary extinctions by removing targeted and random species**  
+   b. **Compare targeted species removal to random removal using a permutation test ** 
 
 
 ---------------------------
@@ -34,11 +34,11 @@ To add images, replace `tutheaderbl1.png` with the file name of any image you up
 
 Species interactions in ecosystems form the basis of many ecological studies, but numbers and names alone are often difficult to interpret. When investigating the feeding relations between organisms, ecologists can use **food web networks** and **heatmaps**, which best present datasets that include a list of predator (consumer) species, prey (resource) species, and interaction strength (OR, biomass and density). Such visual depiction can be done on `RStudio` via versatile R packages that allow colourful, customizable presentations of data, including (but not limited to) `ggraph` and `ggplot2`.
 
-In this tutorial, you will learn how to visualize food webs in two formats: **network diagrams** and **heat maps**, along with the necessary **data manipulation** steps beforehand. Network diagrams help identify food chains and trophic levels, with nodes representing species and edges showing interactions. Heat maps, on the other hand, focus on the strength of interactions between species using color gradients. You will first learn how to prepare your data, including organizing species and calculating interaction strength. Then, we will create network plots with `ggraph` to highlight predator-prey relationships, followed by heat maps using `ggplot2` to display interaction intensities. By the end of this tutorial, you’ll be equipped with the skills to visualize food webs effectively and interpret their ecological significance.
+In this tutorial, you will learn how to visualize food webs in two formats: **network diagrams** and **heat maps**, along with the necessary **data manipulation** steps beforehand. Network diagrams help identify food chains and trophic levels, with nodes representing species and edges showing interactions. Heat maps, on the other hand, focus on the strength of interactions between species using color gradients. You will first learn how to prepare your data, including organizing species and calculating interaction strength. Then, we will create network plots with `ggraph` to highlight predator-prey relationships, followed by heat maps using `ggplot2` to display interaction intensities. By the end of this tutorial, you’ll be equipped with the skills to visualize food webs effectively and interpret their ecological significance. You’ll also learn how to build functions to simulate species removal and assess its ecological consequences, in terms of trophic isolation. These functions help quantify the cascading effects of species loss by identifying isolated species and calculating the extent of trophic disruption. By the end of this tutorial, you’ll be equipped with the skills to visualize food webs effectively and statistically interpret species' ecological significance.
 
 You can get all of the resources for this tutorial from <a href="https://github.com/EdDataScienceEES/tutorial-keenmustard.git" target="_blank">this GitHub repository</a>. Clone and download the repo as a zip file, then unzip it.
 
-Before you dive into this tutorial, it is recommended you are familiar with the [basic dplyr operations]( https://ourcodingclub.github.io/tutorials/data-manip-intro/ ) and [data visualisation]( https://ourcodingclub.github.io/tutorials/datavis/).
+Before you dive into this tutorial, it is recommended you are familiar with the [basic dplyr operations]( https://ourcodingclub.github.io/tutorials/data-manip-intro/ ), [data visualisation]( https://ourcodingclub.github.io/tutorials/datavis/) and [function building](https://ourcodingclub.github.io/tutorials/funandloops/).
 
 <a name="section1"></a>
 
@@ -101,7 +101,7 @@ str(node_properties)
 str(trophic_links)
 ```
 
-`node_properties` shows 37 entries of species, along with their mass (`M`) , density (`N`), and the taxonomic groups they belong to. According to `properties`, `M` (mass) and `N` (density) columns have mg and m^-2 (per square meter) as units respectively.
+`node_properties` shows 37 species/groups/resource types, along with their mass (`M`) , density (`N`), and the taxonomic groups they belong to. According to `properties`, `M` (mass) and `N` (density) columns have mg and m<sup>-2</sup> (per square meter) as units respectively.
 
 `trophic_links` includes two columns only, with each row being a predator-prey pair. 
 
@@ -133,7 +133,15 @@ list(Nodes_Not_in_Resources = nodes_not_in_resources,
 
 From the code output, we can tell that the producer (`algae`) and detritus (`CPOM` and `FPOM`) are not recorded as resources in trophic links. This implies our food web will focus on trophic levels from primary consumer onwards. Additionally, we also see invertebrates including _Platambus maculatus_ and _Adicella reducta_ not included in prey, implying such organisms are in the top trophic level.
 
-What we still need to know is the **interaction strength** between a predator-prey duo, which, with limited data, can be represented with **biomass flux** instead, estimated by $$ I = \frac{M_j \times N_j}{M_i} $$ where \( I \) = The interaction strength between predator and prey; \( M_j\) = Mass (or biomass) of the prey species\( N_j\); N_j= Density of the prey species (j) ; \( M_i\): Mass (or biomass) of the predator species (i).
+What we still need to know is the interaction strength between a predator-prey duo, which, with limited data, can be represented with biomass flux instead, estimated by:
+
+I = (<i>M<sub>j</sub></i> × <i>N<sub>j</sub></i>) / <i>M<sub>i</sub></i>
+
+where:
+- <i>I</i>: The interaction strength between predator and prey  
+- <i>M<sub>j</sub></i>: Mass (or biomass) of the prey species  
+- <i>N<sub>j</sub></i>: Density of the prey species (<i>j</i>)  
+- <i>M<sub>i</sub></i>: Mass (or biomass) of the predator species (<i>i</i>)
 
 Run the below code (written in our favourite `tidyverse` format) to calculate \( M_j\) * \( N_j\) and \( M_i\) for every node. Please note that at this step, it seems like we are ridiculously assuming each node could be prey and predator simultaneously – even though there are definitely prey-only and predator-only nodes (e.g. `Diptera` and _Platambus maculatus_ we saw from the last step were not found in the list of `resource`) in this ecosystem. But don’t worry, we won’t end up using every value calculated here. At this step we just can’t tell which ones are prey- or predator-only yet since the trophic links are recorded in another data frame. 
 
