@@ -529,12 +529,12 @@ But does it mean as an apex predator, _Cordulegaster boltonii_ is not a keystone
 
 **Nonetheless, you have reached the end of the tutorial!** You are now competent in
 
-##### -	Extracting and manipulating ecological data for food web visualisation
-##### -	Visualising food web as networks using `igraph` and `ggraph`
-##### -	Visualising biomass flow with heatmaps using `ggplot2`
-##### -	Using `plotly` to enhance plot interactiveness
-##### - Building functions that can tamper with `igraph` objects to simulate effect of species removal on food web
-##### - Building functions to conduct permutation test to determine whether a species is significantly more influential than another, based on number of trophic isolations caused upon removal
+-	Extracting and manipulating ecological data for food web visualisation
+-	Visualising food web as networks using `igraph` and `ggraph`
+-	Visualising biomass flow with heatmaps using `ggplot2`
+-	Using `plotly` to enhance plot interactiveness
+- Building functions that can tamper with `igraph` objects to simulate effect of species removal on food web
+- Building functions to conduct permutation test to determine whether a species is significantly more influential than another, based on number of trophic isolations caused upon removal
 
 Happy coding!
 
