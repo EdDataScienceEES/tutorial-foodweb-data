@@ -261,6 +261,11 @@ trophic_links <- trophic_links %>%
   # Add predator mass by joining on 'consumer' (predator nodes)
   left_join(node_properties %>% select(node, predator_mass), by = c("consumer" = "node"))
 ```
+<figure style="text-align: center;">
+    <img src="figures/normalised_strength.png" alt="Img">
+    <figcaption style="color: grey;">Prey A has a normalised interaction strength of 0.1 with the predator indicates only 10% of predator's biomass intake comes from Prey A. </figcaption>
+</figure>
+
 Finally, we can calculate <i>I</i> for each interacting pair (Hint: <i>I = <sup>M<sub>j</sub> × N<sub>j</sub></sup>/<sub>M<sub>i</sub></sub></i>) only to see the resulting values of <i>I</i> are not exactly straightforward. Fortunately, for easier interpretation, we can normalise <i>I</i>, such that it shows how much biomass one prey node contributes to a given predator species, as a proportion over the total prey biomass flux to that predator species. For instance, if a predator-prey pair has a normalised value of 0.1, it means this prey species contributes to 10% of the total biomass making up the predator’s diet.
 
 ```r
