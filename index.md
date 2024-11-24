@@ -34,7 +34,7 @@ To add images, replace `tutheaderbl1.png` with the file name of any image you up
 
 ---------------------------
 
-## Introduction
+### Introduction
 
 Species interactions in ecosystems form the basis of many ecological studies, but numbers and names alone are often difficult to interpret. When investigating the feeding relations between organisms, ecologists can use **food web networks** and **heatmaps**, which best present datasets that include a list of predator (consumer) species, prey (resource) species, and interaction strength (OR, biomass and density). Such visual depiction can be done on `RStudio` via versatile R packages that allow colourful, customizable presentations of data, including (but not limited to) `ggraph` and `ggplot2`.
 
@@ -46,7 +46,7 @@ Before you dive into this tutorial, it is recommended you are familiar with the 
 
 <a name="section1"></a>
 
-## 1. Extract, subset and modify data using cheddar and dplyr 
+### 1. Extract, subset and modify data using cheddar and dplyr 
 
 ### 1a. Extract ecological data from external library `cheddar`
 
@@ -186,7 +186,7 @@ Great! We’ve now got some neat data ready for visualisation, all in `food_web`
 
 <a name="section2"></a>
 
-## 2. Visualise feeding relations of a food web using `igraph`, `ggraph` and `ggplot2`
+### 2. Visualise feeding relations of a food web using `igraph`, `ggraph` and `ggplot2`
 
 ### 2a.	Visualise data as food web network with `ggraph`
 
@@ -328,9 +328,9 @@ Here’s how the labels should show up when you hover over a tile:
 
 Unfortunately, when converting `ggplot2` heatmap into an interactive object, **not all elements are kept**, e.g. the grey border of the tiles. In fact, there are libraries on R specialised in heatmaps that allows greater freedom in customizations. If you are considering making a more advanced heatmap, libraries like [`heatmaply`](https://github.com/talgalili/heatmaply) might be the perfect tool! 
 
-<a href="#section3"></a>
+<a name="section3"></a>
 
-## 3. Building functions for statistical analysis of food web data to investigate keystone species, using `igraph` and base R functions 
+### 3. Building functions for statistical analysis of food web data to investigate keystone species, using `igraph` and base R functions 
 
 In ecology, **trophic isolations** occur when the removal of one species leads to the disconnection of other species from the food web, disrupting the flow of energy. 
 
