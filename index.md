@@ -326,6 +326,8 @@ Here’s how the labels should show up when you hover over a tile:
 
 Unfortunately, when converting `ggplot2` heatmap into an interactive object, **not all elements are kept**, e.g. the grey border of the tiles. In fact, there are libraries on R specialised in heatmaps that allows greater freedom in customizations. If you are considering making a more advanced heatmap, libraries like [`heatmaply`](https://github.com/talgalili/heatmaply) might be the perfect tool! 
 
+
+
 <a name="section3"></a> 
 
 ### 3. Building functions for statistical analysis of food web data to investigate keystone species, using `igraph` and base R functions 
