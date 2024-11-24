@@ -177,18 +177,18 @@ species_list <- V(food_web_plot)$name
 print(species_list)
 
 # Define function
-calculate_trophic_isolations <- function(food_web_plot, target_species) {
+calculate_disconnections <- function(food_web_plot, target_species) {
   # Remove the target species
   new_network <- delete_vertices(food_web_plot, target_species)
   
-  # Identify species that are disconnected and thus 'isolated'
-  isolated_species <- V(new_network)$name[degree(new_network, mode = "all") == 0]
+  # Identify species that are disconnected 
+  disconnected_species <- V(new_network)$name[degree(new_network, mode = "all") == 0]
   
-  # Return the number of trophic isolations and species names
+  # Return the number of disconnections and species names
   tibble(
     removed_species = unlist(target_species),  # Using list to keep species name(s) in a list format
-    isolated_species = unlist(isolated_species),  # Store isolated species names
-    trophic_isolations = length(isolated_species),
+    disconnected_species = unlist(disconnected_species),  # Store disconnected species names
+    disconnections = length(disconnected_species),
     remaining_species = vcount(new_network)
   )
 }
@@ -198,7 +198,7 @@ calculate_trophic_isolations <- function(food_web_plot, target_species) {
 # 3b.	Simulation of species removal to measure ecosystem impacts
 
 # Call the function now and save results as a new object
-results <- calculate_trophic_isolations(food_web_plot, target_species)
+results <- calculate_disconnections(food_web_plot, target_species)
 print(results)
 
 # -------------------------------------
@@ -210,16 +210,16 @@ print(results)
 null_distribution <- replicate(1000, { 
   # Randomly select 1 species only for each trial
   random_species <- sample(V(food_web_plot)$name, 1)
-  # Calculate trophic isolation for the random species
-  calculate_trophic_isolations(food_web_plot, random_species)$trophic_isolations
+  # Calculate number of disconnected species for the random species
+  calculate_disconnections(food_web_plot, random_species)$disconnections
 })
 
 # Calculate the p-value
-# Number of trophic isolations first
-observed_isolations <- results$trophic_isolations[[1]]
+# Number of disconnections first
+observed_disconnections <- results$disconnections[[1]]
 null_distribution <- unlist(null_distribution)
 
-p_value <- mean(null_distribution >= observed_isolations)
+p_value <- mean(null_distribution >= observed_disconnections)
 
 # Print the p-value
 cat("P-value for the permutation test: ", p_value, "\n")
