@@ -96,6 +96,7 @@ install.packages("tidyverse") # includes data wrangling tools such as dplyr, tid
 install.packages("ggplot2") # a useful graphic display tool
 install.packages("igraph") # helps visualise food web network
 install.packages("ggraph") # an extension of ggplot2, creates food web heat map
+install.packages("plotly") # Allows plots to get interactive
 
 # Load required libraries
 library(cheddar)
@@ -103,6 +104,7 @@ library(tidyverse)
 library(ggplot2)
 library(igraph) 
 library(ggraph)
+library(plotly)
 
 # Obtain the BroadstoneStream dataset from cheddar and save the useful data frames as objects
 data("BroadstoneStream")
@@ -129,6 +131,59 @@ str(properties)
 str(node_properties)
 str(trophic_links)
 ```
+
+<table style="width:100%; border: 1px solid black; border-collapse: collapse;">
+    <caption style="font-weight: bold; text-align: center;">Node Properties Overview</caption>
+    <thead>
+        <tr>
+            <th>Species/Group</th>
+            <th>Mass (M) <br> (mg)</th>
+            <th>Density (N) <br> (m<sup>-2</sup>)</th>
+            <th>Taxonomic Group</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Cordulegaster boltonii</td>
+            <td>9.725</td>
+            <td>10</td>
+            <td>Invertebrate, Arthropoda, Insecta, Odonata, Cordulegastridae</td>
+        </tr>
+        <tr>
+            <td>Sialis fuliginosa</td>
+            <td>2.756</td>
+            <td>36</td>
+            <td>Invertebrate, Arthropoda, Insecta, Megaloptera, Sialidae</td>
+        </tr>
+        <tr>
+            <td>Plectrocnemia conspersa</td>
+            <td>0.74</td>
+            <td>82</td>
+            <td>Invertebrate, Arthropoda, Insecta, Trichoptera, Polycentropodidae</td>
+        </tr>
+        <tr>
+            <td>Pedicia sp.</td>
+            <td>6.807</td>
+            <td>2</td>
+            <td>Invertebrate, Arthropoda, Insecta, Diptera, Tipulidae</td>
+        </tr>
+        <tr>
+            <td>...</td>
+            <td>...</td>
+            <td>...</td>
+            <td>...</td>
+        </tr>
+    </tbody>
+</table>
+
+<p>The table above shows 37 species/groups/resource types, along with their mass (M), density (N), and taxonomic groups. According to the data:</p>
+<ul>
+    <li><b>M</b> (mass) is measured in mg (milligrams)</li>
+    <li><b>N</b> (density) is measured in m<sup>-2</sup> (per square meter)</li>
+</ul>
+
+<p><b>Trophic Links</b> in the dataset include two columns: <i>resource</i> and <i>consumer</>, with each row representing a predator-prey pair.</p>
+
 
 `node_properties` shows 37 species/groups/resource types, along with their mass (`M`) , density (`N`), and the taxonomic groups they belong to. According to `properties`, `M` (mass) and `N` (density) columns have mg and m<sup>-2</sup> (per square meter) as units respectively.
 
