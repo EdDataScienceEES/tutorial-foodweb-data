@@ -56,8 +56,10 @@ In this tutorial, you will learn how to visualize food webs in two formats: **ne
 
 You can get all of the resources for this tutorial from <a href="https://github.com/EdDataScienceEES/tutorial-keenmustard.git" target="_blank">this GitHub repository</a>. Clone and download the repo as a zip file, then unzip it.
 
-<div style="background-color: #c4f5c9; padding: 15px; border-radius: 10px; border: 3px solid #0077cc;">
-    Before you dive into this tutorial, it is recommended you are familiar with the [basic dplyr operations](https://ourcodingclub.github.io/tutorials/data-manip-intro/), [data visualisation](https://ourcodingclub.github.io/tutorials/datavis/) and [function building](https://ourcodingclub.github.io/tutorials/funandloops/).
+<div style="background-color: #c4f5c9; padding: 15px; border-radius: 10px; border: 2px solid #c4f5c9;">
+    Before you dive into this tutorial, it is recommended you are familiar with the <a href="https://ourcodingclub.github.io/tutorials/data-manip-intro/" style="color: #0077cc; text-decoration: none;">basic dplyr operations</a>, 
+    <a href="https://ourcodingclub.github.io/tutorials/datavis/" style="color: #0077cc; text-decoration: none;">data visualisation</a> and 
+    <a href="https://ourcodingclub.github.io/tutorials/funandloops/" style="color: #0077cc; text-decoration: none;">function building</a>.
 </div>
 
 
