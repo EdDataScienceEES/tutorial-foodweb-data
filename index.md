@@ -2,6 +2,8 @@
 
 To add images, replace `tutheaderbl1.png` with the file name of any image you upload to your GitHub repository.
 
+<h1 style="text-align: center;"><strong>Manipulating, Visualising and Statistically Interpreting Food Webs on R</strong></h1>
+
 ### Tutorial Aims
 
 #### <a href="#section1"> 1. Extract and tidy ecological data from external library `cheddar`, and calculate data useful for food webs</a>
