@@ -69,6 +69,20 @@ You can get all of the resources for this tutorial from <a href="https://github.
 
 ### 1a. Extract ecological data from external library `cheddar`
 
+<p align="center">
+  <div style="display:inline-block; text-align:center; width:45%; margin-right: 10px;">
+    <img src="figures/math_network.jpg" width="100%" />
+    <br>
+    <em> A network in math, where nodes are called 'vertices', and links are called 'edges', just like how most R functions do. Nykamp DQ, “An introduction to networks.” From Math Insight. http://mathinsight.org/network_introduction</em>
+  </div>
+  <div style="display:inline-block; text-align:center; width:45%;">
+    <img src="figures/ecology_network.jpg" width="100%" />
+    <br>
+    <em>A food web network in ecological contexts, where the organisms are nodes. and lines between them indicate feeding relationships. Source: Garrison, J. (2022). Benthic invertebrate food webs in the Baltic Sea: Anthropogenic pressure effects and methodological advancements</em>
+  </div>
+</p>
+
+
 To map energy flow or predator-prey interactions in an ecosystem, ecologists often track which species are present, their population density and biomass per capita. **We call species, or groups of species involved in the food web nodes**; and **links are lines connecting nodes, that indicate a predator-prey relationship**. 
 
 <figure style="text-align: center;">
@@ -131,6 +145,7 @@ str(properties)
 str(node_properties)
 str(trophic_links)
 ```
+And you should be greeted with the below information in the console: 
 
 <table style="width:100%; border: 1px solid black; border-collapse: collapse;">
     <caption style="font-weight: bold; text-align: center;">Node Properties Overview</caption>
