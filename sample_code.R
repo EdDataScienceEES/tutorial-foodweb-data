@@ -3,7 +3,7 @@
 # DD/MM/YYYY
 # -------------------------------------
 
-# 1.	Download data from cheddar
+# 1a.	Download data from cheddar
 
 # Install arequired packages (omit if you already have them installed)
 install.packages("cheddar") # data and functions for analysing/visualising food web data
@@ -39,7 +39,7 @@ str(trophic_links)
 
 # -------------------------------------
 
-# 2.	Subset, extract and modify data using dplyr 
+# 1b.	Subset, extract and modify data using dplyr 
 
 # Let's view what species do we have exactly!
 unique(node_properties$node) 
@@ -82,7 +82,7 @@ food_web <- trophic_links %>% # Rename the data frame as it not only contains tr
 
 # -------------------------------------
 
-# 3.	Visualize data as food web network with ggraph 
+# 2a.	Visualize data as food web network with ggraph 
 
 # Convert our food_web data frame to an igraph object
 food_web_plot <- graph_from_data_frame(food_web, directed = TRUE)
@@ -125,7 +125,7 @@ ggsave("food_web_plot.jpg", plot = food_web_network, width = 15, height = 15, dp
 
 # -------------------------------------
 
-# 4.	Visualize biomass flow as heatmap with ggplot2
+# 2b.	Visualize biomass flow as heatmap with ggplot2
 
 # Build a biomass flow heatmap (predator on horizontal axis, prey on vertical axis, colour represents normalized interaction strength)
 heatmap_plot <- ggplot(food_web, aes(x = consumer, y = resource, fill = normalized_strength)) +
@@ -155,9 +155,71 @@ heatmap_plot <- ggplot(food_web, aes(x = consumer, y = resource, fill = normaliz
 # View the heatmap
 print(heatmap_plot)
 
+# -------------------------------------
+
+# 2c.	Make the heatmap interactive with plotly
+
 # Convert the ggplot heatmap to an interactive plotly plot
 interactive_heatmap <- ggplotly(heatmap_plot) 
 
 # Display the interactive plot
 interactive_heatmap
 
+# -------------------------------------
+
+# 3a.	Preparing a Function for Species Removal Simulations
+
+# Define the species to remove 
+target_species <- "Cordulegaster boltonii"
+
+# Optional: View species names
+species_list <- V(food_web_plot)$name
+print(species_list)
+
+# Define function
+calculate_trophic_isolations <- function(food_web_plot, target_species) {
+  # Remove the target species
+  new_network <- delete_vertices(food_web_plot, target_species)
+  
+  # Identify species that are disconnected and thus 'isolated'
+  isolated_species <- V(new_network)$name[degree(new_network, mode = "all") == 0]
+  
+  # Return the number of trophic isolations and species names
+  tibble(
+    removed_species = unlist(target_species),  # Using list to keep species name(s) in a list format
+    isolated_species = unlist(isolated_species),  # Store isolated species names
+    trophic_isolations = length(isolated_species),
+    remaining_species = vcount(new_network)
+  )
+}
+
+# -------------------------------------
+
+# 3b.	Simulation of species removal to measure ecosystem impacts
+
+# Call the function now and save results as a new object
+results <- calculate_trophic_isolations(food_web_plot, target_species)
+print(results)
+
+# -------------------------------------
+
+# 3c.	Evaluation of keystone species hypothesis using statistical analyses
+
+# Generate null distribution…
+# We want 1000 random trials
+null_distribution <- replicate(1000, { 
+  # Randomly select 1 species only for each trial
+  random_species <- sample(V(food_web_plot)$name, 1)
+  # Calculate trophic isolation for the random species
+  calculate_trophic_isolations(food_web_plot, random_species)$trophic_isolations
+})
+
+# Calculate the p-value
+# Number of trophic isolations first
+observed_isolations <- results$trophic_isolations[[1]]
+null_distribution <- unlist(null_distribution)
+
+p_value <- mean(null_distribution >= observed_isolations)
+
+# Print the p-value
+cat("P-value for the permutation test: ", p_value, "\n")
