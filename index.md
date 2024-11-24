@@ -259,8 +259,6 @@ Pretty interpretable! We can identify **food chains** from our web and locate th
 
 In case there are still **label overlaps** after zooming, you can always **save the plot as an image** and adjust its width and height. For my sample code, this is my recommended dimensions: `ggsave("food_web_plot.png", plot = food_web_network, width = 15, height = 15, dpi = 300) `. The image `food_web_plot.png` will be saved in the working directory. 
 
-<a name="section4"></a>
-
 ### 2b.	Visualise data as heatmap with `ggplot2`
 
 Food web networks give a holistic view of the ecosystem’s feeding relations, but in case you would like to focus more on the **quantitative aspects** of the web, **biomass flow heat map** is the better alternative since it displays interaction strength in a clearer manner compared to a food web network.
@@ -328,7 +326,7 @@ Here’s how the labels should show up when you hover over a tile:
 
 Unfortunately, when converting `ggplot2` heatmap into an interactive object, **not all elements are kept**, e.g. the grey border of the tiles. In fact, there are libraries on R specialised in heatmaps that allows greater freedom in customizations. If you are considering making a more advanced heatmap, libraries like [`heatmaply`](https://github.com/talgalili/heatmaply) might be the perfect tool! 
 
-<a name="section3"></a>
+<a name="section3"></a> 
 
 ### 3. Building functions for statistical analysis of food web data to investigate keystone species, using `igraph` and base R functions 
 
