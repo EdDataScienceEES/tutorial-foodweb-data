@@ -881,6 +881,54 @@ Last but not least, to statistically determine the significance of our results, 
     </pre>
 </div>
 
+Eh? An error is returned: 
+  
+```
+Error in mean(null_distribution >= observed_disconnections) : 
+  'list' object cannot be coerced to type 'integer'
+  
+```
+
+_Why_ was that the case? Let's check the **class** of `null_distribution`. 
+
+And... this is the culprit: 
+
+```
+> class(null_distribution)
+[1] "list"
+```
+R cannot comprehend calculating p-value from `list`. Therefore, we have to `unlist()` `null_distribution`. 
+
+<div style="position: relative;">
+    <button onclick="copyCode('code-block-unlistnull')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+    <pre id="code-block-unlistnull">
+   null_distribution <- unlist(null_distribution)
+    </pre>
+</div>
+
+Great! Now try run `p_value <- mean(null_distribution >= observed_disconnections)` again. 
+
+And here comes the same error... because `observed_disconnections` is a whole table of characters and integers. Therefore, we have to extract the number of disconnections using: 
+
+<div style="position: relative;">
+    <button onclick="copyCode('code-block-unlistnull')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+    <pre id="code-block-unlistnull">
+   observed_disconnections <- results$disconnections[[1]]
+    </pre>
+</div>
+
+And finally, we can run the p-value test: 
+
+<div style="position: relative;">
+    <button onclick="copyCode('code-block-unlistnull')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+    <pre id="code-block-unlistnull">
+   #Calculate the p-value
+    p_value <- mean(null_distribution >= observed_disconnections)
+    # Print the p-value
+    cat("P-value for the permutation test: ", p_value, "\n")
+    </pre>
+</div>
+
 Our p-value is 1, suggesting that removing the target species _Cordulegaster boltonii_ .
 
 **But does it mean as an apex predator, _Cordulegaster boltonii_ is not a keystone species?** Not necessarily. In fact, very often in freshwater ecosystems,  _Cordulegaster boltonii_ is considered a keystone species. It is most likely still important for other reasons not captured by this particular analysis, like nutrient cycling, population regulation of prey (which are predators of other species); or interactions not directly related to trophic structure. The results do NOT imply that the species can be removed without consequence, as trophic interactions and ecological dynamics might be influenced in more complex, indirect ways that aren't fully captured by this statistical test!
