@@ -814,7 +814,9 @@ In our case, under the null hypothesis (no single species removal cause signific
 <div style="background-color: #c4f5c9; padding: 15px; border-radius: 10px; border: 2px solid #c4f5c9;">
     Each time you run a function that randomly selects its inputs, the output varies. Therefore, before we begin with the function, we can set a <strong>seed</strong> so we could revisit our results with the exact same null distribution, using <code>set.seed()</code>.
     <p>Here’s a code snippet to show the magic of <code>set.seed()</code>. Try run it yourself!</p>
-    <pre style="background-color: #f6f6f6; padding: 10px; border-radius: 5px; border: 1px solid #ddd; overflow-x: auto;">
+    <div style="position: relative;">
+        <button onclick="copyCode('code-block-seed')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+        <pre id="code-block-seed" style="background-color: #f6f6f6; padding: 10px; border-radius: 5px; border: 1px solid #ddd; overflow-x: auto;">
 <code>set.seed(123)  # Initial seed
 random_numbers_1 <- sample(1:100, 5) 
 print(random_numbers_1)
@@ -822,10 +824,21 @@ print(random_numbers_1)
 set.seed(123)  # Use the same seed
 random_numbers_2 <- sample(1:100, 5)
 print(random_numbers_2)</code>
-    </pre>
+        </pre>
+    </div>
     <p>You’ll notice that <code>random_numbers_1</code> is the same as <code>random_numbers_2</code>! Setting a seed is optional, but it increases reproducibility.</p>
 </div>
 
+<script>
+function copyCode(id) {
+    var code = document.getElementById(id).innerText;
+    navigator.clipboard.writeText(code).then(function() {
+        alert('Code copied to clipboard!');
+    }, function() {
+        alert('Failed to copy code.');
+    });
+}
+</script>
 
 Going back to our main objective – we need to tell R to execute the task 1000 times. We can use `replicate(“number of replicates”, {“tasks”})` for repeating tasks. 
 Our code will start with something like this: 
