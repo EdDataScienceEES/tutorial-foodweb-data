@@ -1,25 +1,25 @@
-<div style="position: relative; display: inline-block; width: 100vw;">
-    <img src="figures/freshwater_ecosystem.jpg" alt="Freshwater Ecosystem" style="width: 100vw; height: auto;">
+<div style="position: relative; display: inline-block; width: 80vw;">
+    <img src="figures/freshwater_ecosystem.jpg" alt="Freshwater Ecosystem" style="width: 100%; height: auto;">
     <div style="
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         color: white;
-        font-size: 24px;  /* Reduced from 48px to half size */
+        font-size: 36px;
         font-weight: bold;
         text-align: center;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-        padding: 10px;  /* Optional padding */
+        padding: 10px;
     ">
         Manipulating, Visualising, and Statistically Interpreting Food Web Data on R
     </div>
     <div style="
-        text-align: right;  /* Right-align the caption */
+        text-align: right;
         font-size: 14px;
         color: #555;
         margin-top: 5px;
-        padding-right: 10px;  /* Adds padding from the right */
+        padding-right: 10px;
     ">
         Photo by Jason Patrick Ross
     </div>
@@ -27,9 +27,8 @@
 
 
 _Created by Annette Wong - 27th November 2024_
-------------------------------------
 
-## Manipulating, Visualising and Statistically Interpreting Food Web Data on R
+------------------------------------
 
 ### Tutorial Aims
 
