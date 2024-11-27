@@ -95,58 +95,8 @@ To map energy flow or predator-prey interactions in an ecosystem, ecologists oft
 
 To start off, create a new R script with a few lines of information at the top and you’re good to go (remember to use hasthags # for all annotations).
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Copy Button Example</title>
-    <style>
-        /* Style for the container holding the code block */
-        .code-container {
-            position: relative;
-            display: block; /* Changed from inline-block to block to stretch the container */
-            width: 100%; /* Ensure the container takes up the full width */
-            margin: 20px 0; /* Space around the container */
-        }
-
-        /* Style for the copy button */
-        .copy-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 14px;
-        }
-
-        /* Style for the code block */
-        pre {
-            background-color: #f4f4f4;
-            padding: 20px;
-            border-radius: 8px;
-            overflow-x: auto;
-            font-family: monospace;
-            white-space: pre-wrap; /* Ensures long lines wrap inside the box */
-            word-wrap: break-word; /* Ensures words break correctly */
-            width: 100%; /* Ensures it stretches to 100% of the container */
-            max-width: 100%; /* Prevents the box from growing beyond the container */
-            box-sizing: border-box; /* Ensures padding is included in the width */
-        }
-    </style>
-</head>
-<body>
-
-<!-- Container for code block and the copy button -->
 <div class="code-container">
-    <!-- Copy button -->
     <button class="copy-button" onclick="copyCode()">Copy contents</button>
-
-    <!-- Code block -->
     <pre id="code-block">
 # Visualising Food Webs on R
 # Your name
@@ -154,35 +104,19 @@ To start off, create a new R script with a few lines of information at the top a
     </pre>
 </div>
 
-<!-- JavaScript for copy functionality -->
 <script>
     function copyCode() {
-        // Get the code block element
         const code = document.getElementById('code-block');
-        
-        // Create a temporary textarea to hold the code
         const textarea = document.createElement('textarea');
-        textarea.value = code.textContent; // Copy the text from the code block
+        textarea.value = code.textContent;
         document.body.appendChild(textarea);
-        
-        // Select the text in the textarea
         textarea.select();
-        textarea.setSelectionRange(0, 99999); // For mobile devices
-        
-        // Execute the copy command
+        textarea.setSelectionRange(0, 99999);
         document.execCommand('copy');
-        
-        // Remove the temporary textarea
         document.body.removeChild(textarea);
-        
-        // Display the popup message
         alert('Code copied to clipboard!');
     }
 </script>
-
-</body>
-</html>
-
 
 
 Now, let’s install and load libraries of all packages required in this tutorial, and import the dataset from `cheddar`. 
