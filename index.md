@@ -95,12 +95,88 @@ To map energy flow or predator-prey interactions in an ecosystem, ecologists oft
 
 To start off, create a new R script with a few lines of information at the top and you’re good to go (remember to use hasthags # for all annotations).
 
-```r
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copy Button Example</title>
+    <style>
+        /* Style for the container holding the code block */
+        .code-container {
+            position: relative;
+            display: inline-block;
+            margin: 20px;
+        }
+
+        /* Style for the copy button */
+        .copy-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        /* Optional: Style for the code block */
+        pre {
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Container for code block and the copy button -->
+<div class="code-container">
+    <!-- Copy button -->
+    <button class="copy-button" onclick="copyCode()">Copy contents</button>
+
+    <!-- Code block -->
+    <pre id="code-block">
 # Visualising Food Webs on R
 # Your name
-# DD/MM/YYYY`
+# DD/MM/YYYY
+    </pre>
+</div>
 
-```
+<!-- JavaScript for copy functionality -->
+<script>
+    function copyCode() {
+        // Get the code block element
+        const code = document.getElementById('code-block');
+        
+        // Create a temporary textarea to hold the code
+        const textarea = document.createElement('textarea');
+        textarea.value = code.textContent; // Copy the text from the code block
+        document.body.appendChild(textarea);
+        
+        // Select the text in the textarea
+        textarea.select();
+        textarea.setSelectionRange(0, 99999); // For mobile devices
+        
+        // Execute the copy command
+        document.execCommand('copy');
+        
+        // Remove the temporary textarea
+        document.body.removeChild(textarea);
+        
+        // Alert to inform the user
+        alert('Code copied to clipboard!');
+    }
+</script>
+
+</body>
+</html>
+
 Now, let’s install and load libraries of all packages required in this tutorial, and import the dataset from `cheddar`. 
 
 ```r
