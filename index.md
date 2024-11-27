@@ -503,11 +503,17 @@ Pretty interpretable! We can identify **food chains** from our web and locate th
 
 <div style="background-color: #c4f5c9; padding: 15px; border-radius: 10px; border: 2px solid #c4f5c9;">
     In case there are still <strong>label overlaps</strong> after zooming, you can always <strong>save the plot as an image</strong> and adjust its width and height. For my sample code, this is my recommended dimensions:
-    <pre style="background-color: #f6f6f6; padding: 10px; border-radius: 5px; border: 1px solid #ddd; overflow-x: auto;">
+    <div class="code-container" style="position: relative;">
+        <!-- Copy button for this R code chunk -->
+        <button class="copy-button" onclick="copyCode('code-block-5')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+        <!-- The R code chunk enclosed by triple backticks -->
+        <pre id="code-block-5" style="background-color: #f6f6f6; padding: 10px; border-radius: 5px; border: 1px solid #ddd; overflow-x: auto;">
 <code>ggsave("food_web_plot.png", plot = food_web_network, width = 15, height = 15, dpi = 300)</code>
-    </pre>
+        </pre>
+    </div>
     The image <code>food_web_plot.png</code> will be saved in the working directory.
 </div>
+
 
 ### 2b.	Visualise data as heatmap with `ggplot2`
 
