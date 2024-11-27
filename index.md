@@ -123,8 +123,8 @@ To start off, create a new R script with a few lines of information at the top a
 Now, let’s install and load libraries of all packages required in this tutorial, and import the dataset from `cheddar`. 
 
 <div class="code-container" style="position: relative;">
-    <button class="copy-button" onclick="copyCode('code-block-1')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
-    <pre id="code-block-1">
+    <button class="copy-button" onclick="copyCode('code-block-install')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+    <pre id="code-block-install">
 # Install required packages (omit if you already have them installed)
 install.packages("cheddar") # data and functions for analysing/visualising food web data
 install.packages("tidyverse") # includes data wrangling tools such as dplyr, tidyr
@@ -154,8 +154,8 @@ properties <- BroadstoneStream[["properties"]] # Extract properties (unit key)
     <a href="https://github.com/EdDataScienceEES/tutorial-keenmustard.git" style="color: #0077cc; text-decoration: none;">this</a> 
     <code>Github</code> repository, which also holds this tutorial’s sample script.
     <div class="code-container" style="position: relative;">
-        <button class="copy-button" onclick="copyCode('code-block-2')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
-        <pre id="code-block-2">
+        <button class="copy-button" onclick="copyCode('code-block-alternative')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+        <pre id="code-block-alternative">
 # ALTERNATIVE: To directly access data without cheddar, instead of ("BroadstoneStream"), use the below code:
 node_properties <- read.csv("broadstonestream_data/nodes.csv")   # Extract node properties (species data)
 trophic_links <- read.csv("broadstonestream_data/trophic_links.csv")  # Extract trophic links (prey-predator interactions)
@@ -165,8 +165,8 @@ properties <- read.csv("broadstonestream_data/properties.csv")  # Extract proper
 </div>
 
 <div class="code-container" style="position: relative;">
-    <button class="copy-button" onclick="copyCode('code-block-3')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
-    <pre id="code-block-3">
+    <button class="copy-button" onclick="copyCode('code-block-str')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+    <pre id="code-block-str">
 # Examine data properties
 str(properties)
 str(node_properties)
@@ -249,8 +249,8 @@ We can now move on to tidy the data frames we have just extracted. If we try run
 </p>
 
 <div class="code-container" style="position: relative;">
-    <button class="copy-button" onclick="copyCode('code-block-1')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
-    <pre id="code-block-1">
+    <button class="copy-button" onclick="copyCode('code-block-unique')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+    <pre id="code-block-unique">
 unique(trophic_links$resource)
     </pre>
 </div>
@@ -260,8 +260,8 @@ unique(trophic_links$resource)
 </p>
 
 <div class="code-container" style="position: relative;">
-    <button class="copy-button" onclick="copyCode('code-block-2')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
-    <pre id="code-block-2">
+    <button class="copy-button" onclick="copyCode('code-block-setdiff')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+    <pre id="code-block-setdiff">
 # Create data frames containing characters in nodes' but not 'resources'; and vice versa
 nodes_not_in_resources <- setdiff(unique(node_properties$node), unique(trophic_links$resource))
 resources_not_in_nodes <- setdiff(unique(trophic_links$resource), unique(node_properties$node))
@@ -310,8 +310,8 @@ Run the below code (written in our favourite tidyverse format) to calculate <i>M
 </p>
 
 <div class="code-container" style="position: relative;">
-    <button class="copy-button" onclick="copyCode('code-block-3')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
-    <pre id="code-block-3">
+    <button class="copy-button" onclick="copyCode('code-block-mn')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+    <pre id="code-block-mn">
 # Calculate biomass (M * N) for prey and keep only mass for predators
 node_properties <- node_properties %>%
   mutate(
@@ -327,8 +327,8 @@ node_properties <- node_properties %>%
 </p>
 
 <div class="code-container" style="position: relative;">
-    <button class="copy-button" onclick="copyCode('code-block-4')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
-    <pre id="code-block-4">
+    <button class="copy-button" onclick="copyCode('code-block-join')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+    <pre id="code-block-join">
 # Joining trophic_links with node_properties
 trophic_links <- trophic_links %>%
   # Add prey biomass by joining on 'resource' (prey nodes)
@@ -364,8 +364,8 @@ Finally, we can calculate <i>I</i> for each interacting pair (Hint: <i>I = <sup>
 </p>
 
 <div class="code-container" style="position: relative;">
-    <button class="copy-button" onclick="copyCode('code-block-5')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
-    <pre id="code-block-5">
+    <button class="copy-button" onclick="copyCode('code-block-norm')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+    <pre id="code-block-norm">
 # Calculate and normalise interaction strength
 food_web <- trophic_links %>% # Rename the data frame as it not only contains trophic links now
   group_by(consumer) %>%  # Normalised strengths are based on single predator 
@@ -406,8 +406,8 @@ Great! We’ve now got some neat data ready for visualisation, all in `food_web`
 </p>
 
 <div class="code-container" style="position: relative;">
-    <button class="copy-button" onclick="copyCode('code-block-1')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
-    <pre id="code-block-1">
+    <button class="copy-button" onclick="copyCode('code-block-webplot')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+    <pre id="code-block-webplot">
 # Convert our food_web data frame to an igraph object
 food_web_plot <- graph_from_data_frame(food_web, directed = TRUE)
     </pre>
@@ -420,8 +420,8 @@ food_web_plot <- graph_from_data_frame(food_web, directed = TRUE)
 <div style="background-color: #c4f5c9; padding: 15px; border-radius: 10px; border: 2px solid #c4f5c9;">
     <p>If you are curious, you could see the structure of the plottable <code>igraph</code> object with:</p>
     <div class="code-container" style="position: relative;">
-        <button class="copy-button" onclick="copyCode('code-block-2')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
-        <pre id="code-block-2">
+        <button class="copy-button" onclick="copyCode('code-block-viewweb')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+        <pre id="code-block-viewweb">
 # OPTIONAL: View what igraph did to our data!
 print(food_web_plot)
         </pre>
@@ -442,8 +442,8 @@ print(food_web_plot)
 </p>
 
 <div class="code-container" style="position: relative;">
-    <button class="copy-button" onclick="copyCode('code-block-3')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
-    <pre id="code-block-3">
+    <button class="copy-button" onclick="copyCode('code-block-plotweb')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+    <pre id="code-block-plotweb">
 # Coding for a food web network and save it as an object
 food_web_network <- ggraph(food_web_plot) +  # Calls for a plot using package ggraph
   geom_node_point() +  # Add a layer to plot our nodes as points 
@@ -469,8 +469,8 @@ But just like a `ggplot2` graph, we can add a few more lines of code to give thi
 </p>
 
 <div class="code-container" style="position: relative;">
-    <button class="copy-button" onclick="copyCode('code-block-4')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
-    <pre id="code-block-4">
+    <button class="copy-button" onclick="copyCode('code-block-prettyweb')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+    <pre id="code-block-prettyweb">
 # Use ggraph to visualize the food web again, but make it prettier
 food_web_network <- ggraph(food_web_plot, layout = 'fr') +  # Fruchterman-Reingold layout tends to cluster interacting species together
   geom_edge_link(
@@ -516,7 +516,7 @@ Food web networks give a holistic view of the ecosystem’s feeding relations, b
 To build a heat map, we can stick to `ggplot2`, using the `geom_tile()` function. It creates rectangular tiles where the fill colour of each tile represents the value of a variable. Each tile corresponds to a specific **pair of variables** on the x and y axes (in our case, the predator and the prey), and the **colour gradient** encodes a **third variable**. Use the code below to build a simple heat map using our `food_web` data frame:
 
 <div style="position: relative;">
-    <button onclick="copyCode('code-block-5')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+    <button onclick="copyCode('code-block-heat')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
     ```r
     # Build a biomass flow heatmap (predator on horizontal axis, prey on vertical axis, colour represents normalized interaction strength)
     heatmap_plot <- ggplot(food_web, aes(x = consumer, y = resource, fill = normalized_strength)) +
@@ -537,7 +537,7 @@ And the heat map should look similar to this:
 We have just created the _most_ basic heatmap! Obviously, **there are some major issues with it** – the labels are horizontal by default on the x axis, the grid doesn’t align with the tiles, and the colours are not distinct enough from each other. We can fix those flaws with more lines of code:
 
 <div style="position: relative;">
-    <button onclick="copyCode('code-block-6')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+    <button onclick="copyCode('code-block-heatpretty')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
     ```r
     # Improve the heatmap
     heatmap_plot <- ggplot(food_web, aes(x = consumer, y = resource, fill = normalized_strength)) +
