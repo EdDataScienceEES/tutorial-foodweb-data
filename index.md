@@ -244,26 +244,47 @@ And you should be greeted with the below information in the console:
 
 We can now move on to tidy the data frames we have just extracted. If we try run some code, we could gain even deeper understanding of which nodes are present, and between which ones should connections exist. 
 
-```r
-# Let's view what species do we have exactly!
-unique(node_properties$node) 
-```
-There are some producers (`Algae`) and detritus (`CPOM` and `FPOM`) here! I would assume they are resources. Let's see if they are in `trophic_links$resource`.
+<p>
+    There are some producers (<em>Algae</em>) and detritus (<em>CPOM</em> and <em>FPOM</em>) here! I would assume they are resources. Let's see if they are in <code>trophic_links$resource</code>.
+</p>
 
-```r
-unique(trophic_links$resource) 
-```
-They don't seem to be! If we run another few lines line to find differences...
+<div class="code-container" style="position: relative;">
+    <button class="copy-button" onclick="copyCode('code-block-1')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+    <pre id="code-block-1">
+unique(trophic_links$resource)
+    </pre>
+</div>
 
-```r
+<p>
+    They don't seem to be! If we run another few lines to find differences...
+</p>
+
+<div class="code-container" style="position: relative;">
+    <button class="copy-button" onclick="copyCode('code-block-2')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+    <pre id="code-block-2">
 # Create data frames containing characters in nodes' but not 'resources'; and vice versa
 nodes_not_in_resources <- setdiff(unique(node_properties$node), unique(trophic_links$resource))
 resources_not_in_nodes <- setdiff(unique(trophic_links$resource), unique(node_properties$node))
 # And display the result...
 list(Nodes_Not_in_Resources = nodes_not_in_resources,
   Resources_Not_in_Nodes = resources_not_in_nodes)
+    </pre>
+</div>
 
-```
+<script>
+    function copyCode(codeBlockId) {
+        const code = document.getElementById(codeBlockId);
+        const textarea = document.createElement('textarea');
+        textarea.value = code.textContent;
+        document.body.appendChild(textarea);
+        textarea.select();
+        textarea.setSelectionRange(0, 99999);
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        alert('Code copied to clipboard!');
+    }
+</script>
+
 
 | **Category**             | **Nodes**                                                                                              |
 |--------------------------|-------------------------------------------------------------------------------------------------------|
@@ -284,26 +305,53 @@ where:
 - <i>M<sub>i</sub></i>: Mass (or biomass) of the predator species (<i>i</i>)
 
 Run the below code (written in our favourite tidyverse format) to calculate <i>M<sub>j</sub></i> × <i>N<sub>j</sub></i> and <i>M<sub>i</sub></i> for every node. Please note that at this step, it seems like we are ridiculously assuming each node could be prey and predator simultaneously – even though there are definitely prey-only and predator-only nodes (e.g., Diptera and <i>Platambus maculatus</i> we saw from the last step were not found in the list of resources) in this ecosystem. But don’t worry, we won’t end up using every value calculated here. At this step, we just can’t tell which ones are prey- or predator-only yet since the trophic links are recorded in another data frame.
+<p>
+    Now that we have gotten every node’s prey total biomass and predator biomass, we could assign the values to each corresponding predator-prey pair via joining <code>node_properties</code> to <code>trophic_links</code> with <code>dplyr</code>’s <code>left_join()</code>.
+</p>
 
-```r
+<div class="code-container" style="position: relative;">
+    <button class="copy-button" onclick="copyCode('code-block-3')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+    <pre id="code-block-3">
 # Calculate biomass (M * N) for prey and keep only mass for predators
 node_properties <- node_properties %>%
   mutate(
     prey_biomass = M * N,  # Prey biomass includes mass and density
     predator_mass = M      # Predator biomass is just the mass
   ) %>%
-  select(node, prey_biomass, predator_mass)  # Keep only necessary columns 
-```
-Now that we have gotten every node’s prey total biomass and predator biomass, we could assign the values to each corresponding predator-prey pair via joining `node_properties` to `trophic_links` with `dplyr`’s `left_join()`.
+  select(node, prey_biomass, predator_mass)  # Keep only necessary columns
+    </pre>
+</div>
 
-```r
+<p>
+    Joining <code>trophic_links</code> with <code>node_properties</code>.
+</p>
+
+<div class="code-container" style="position: relative;">
+    <button class="copy-button" onclick="copyCode('code-block-4')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+    <pre id="code-block-4">
 # Joining trophic_links with node_properties
 trophic_links <- trophic_links %>%
   # Add prey biomass by joining on 'resource' (prey nodes)
   left_join(node_properties %>% select(node, prey_biomass), by = c("resource" = "node")) %>%
   # Add predator mass by joining on 'consumer' (predator nodes)
   left_join(node_properties %>% select(node, predator_mass), by = c("consumer" = "node"))
-```
+    </pre>
+</div>
+
+<script>
+    function copyCode(codeBlockId) {
+        const code = document.getElementById(codeBlockId);
+        const textarea = document.createElement('textarea');
+        textarea.value = code.textContent;
+        document.body.appendChild(textarea);
+        textarea.select();
+        textarea.setSelectionRange(0, 99999);
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        alert('Code copied to clipboard!');
+    }
+</script>
+
 <figure style="text-align: center;">
     <img src="figures/normalised_strength.png" alt="Img">
     <figcaption style="color: grey;">Prey A has a normalised interaction strength of 0.1 with the predator indicates only 10% of predator's biomass intake comes from Prey A. </figcaption>
