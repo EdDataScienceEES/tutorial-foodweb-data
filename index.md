@@ -550,7 +550,6 @@ To build a heat map, we can stick to `ggplot2`, using the `geom_tile()` function
 <div style="position: relative;">
     <button onclick="copyCode('code-block-heat')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
     <pre id="code-block-heat">
-    ```r
     # Build a biomass flow heatmap (predator on horizontal axis, prey on vertical axis, colour represents normalized interaction strength)
     heatmap_plot <- ggplot(food_web, aes(x = consumer, y = resource, fill = normalized_strength)) +
       geom_tile() + # Add a tile plot layer as the heatmap
@@ -560,7 +559,6 @@ To build a heat map, we can stick to `ggplot2`, using the `geom_tile()` function
         y = "Prey")
     # Let's take a look at the heatmap
     print(heatmap_plot) 
-    ```
     </pre>
 </div>
 
@@ -574,7 +572,6 @@ We have just created the _most_ basic heatmap! Obviously, **there are some major
 <div style="position: relative;">
     <button onclick="copyCode('code-block-heatpretty')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
     <pre id="code-block-heatpretty">
-    ```r
     # Improve the heatmap
     heatmap_plot <- ggplot(food_web, aes(x = consumer, y = resource, fill = normalized_strength)) +
       geom_tile(color = "#4d4d4d", size = 0.2) + # Colour the border so we can easily count the number of tiles
@@ -590,7 +587,6 @@ We have just created the _most_ basic heatmap! Obviously, **there are some major
       ) 
     # View the heatmap
     print(heatmap_plot)
-    ```
     </pre>
 </div>
 
@@ -610,12 +606,10 @@ But here's the trick – convert the heatmap into an **interactive plot** via `p
 <div style="position: relative;">
     <button onclick="copyCode('code-block-plotly')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
     <pre id="code-block-plotly">
-    ```r
     # Convert the ggplot heatmap to an interactive plotly plot
     interactive_heatmap <- ggplotly(heatmap_plot) 
     # Display the interactive plot
     interactive_heatmap
-    ```
     </pre>
 </div>
 
@@ -677,10 +671,8 @@ Throughout Section 3 I'll base all statistical calculations and results on _Cord
 <div style="position: relative;">
     <button onclick="copyCode('code-block-species')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
     <pre id="code-block-species">
-    ```r
     # Define the species to remove 
     target_species <- "Cordulegaster boltonii" # Replace Cordulegaster boltonii with the name of your species
-    ```
     </pre>
 </div>
 
@@ -741,7 +733,6 @@ Now, combine all the body lines into the `{}` bracket and there we go:
 <div style="position: relative;">
     <button onclick="copyCode('code-block-calculate-disconnections')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
     <pre id="code-block-calculate-disconnections">
-    ```r
     # Function to calculate secondary extinctions
     calculate_disconnections <- function(food_web_plot, target_species) {
       # Remove the target species
@@ -758,7 +749,6 @@ Now, combine all the body lines into the `{}` bracket and there we go:
         remaining_species = vcount(new_network)
       )
     }
-    ```
     </pre>
 </div>
 
@@ -769,11 +759,9 @@ In the last part, we have already defined which species to remove. Everything is
 <div style="position: relative;">
     <button onclick="copyCode('code-block-call-function')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
     <pre id="code-block-call-function">
-    ```r
     # Call the function now and save results as a new object
     result <- calculate_secondary_extinctions(food_web_plot, target_species)
     print(result)
-    ```
     </pre>
 </div>
 
@@ -871,7 +859,6 @@ For a complete block of code that generates null distribution for random species
 <div style="position: relative;">
     <button onclick="copyCode('code-block-null-distribution')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
     <pre id="code-block-null-distribution">
-    ```r
     # Generate null distribution…
     # We want 1000 random trials
     null_distribution <- replicate(1000, { 
@@ -880,7 +867,6 @@ For a complete block of code that generates null distribution for random species
       # Calculate disconnection for the random species
       calculate_disconnections(food_web_plot, random_species)$disconnections
     })
-    ```
     </pre>
 </div>
 
@@ -889,12 +875,10 @@ Last but not least, to statistically determine the significance of our results, 
 <div style="position: relative;">
     <button onclick="copyCode('code-block-p-value')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
     <pre id="code-block-p-value">
-    ```r
     # Calculate the p-value
     p_value <- mean(null_distribution >= observed_disconnections)
     # Print the p-value
     cat("P-value for the permutation test: ", p_value, "\n")
-    ```
     </pre>
 </div>
 
