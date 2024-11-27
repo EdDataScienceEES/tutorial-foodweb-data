@@ -24,6 +24,9 @@
 </div>
 
 
+_Created by Annette Wong - 27th November 2024_
+------------------------------------
+
 ## Manipulating, Visualising and Statistically Interpreting Food Web Data on R
 
 ### Tutorial Aims
