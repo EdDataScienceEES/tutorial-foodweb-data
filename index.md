@@ -131,15 +131,14 @@ properties <- BroadstoneStream[["properties"]] # Extract properties (unit key)
     Alternatively, if you don’t wish to install <code>cheddar</code>, the data frames (<code>nodes.csv</code>, <code>properties.csv</code>, and <code>trophic_links.csv</code>) are included in 
     <a href="https://github.com/EdDataScienceEES/tutorial-keenmustard.git" style="color: #0077cc; text-decoration: none;">this</a> 
     <code>Github</code> repository, which also holds this tutorial’s sample script.
-</div>
-
-```r
-# ALTERNATIVE: To directly access data without cheddar, instead of ("BroadstoneStream"), use the below code:
+    <pre style="background-color: #f6f6f6; padding: 10px; border-radius: 5px; border: 1px solid #ddd; overflow-x: auto;">
+<code># ALTERNATIVE: To directly access data without cheddar, instead of ("BroadstoneStream"), use the below code:
 node_properties <- read.csv("broadstonestream_data/nodes.csv")   # Extract node properties (species data)
 trophic_links <- read.csv("broadstonestream_data/trophic_links.csv")  # Extract trophic links (prey-predator interactions)
-properties <- read.csv("broadstonestream_data/properties.csv")  # Extract properties (unit key)
+properties <- read.csv("broadstonestream_data/properties.csv")  # Extract properties (unit key)</code>
+    </pre>
+</div>
 
-```
 
 There are 3 data frames in total - `trophic_links`,`node properties` and `properties`. `properties` is not required in calculations, but it tells us about the units used. Let’s see what we've got:
 
@@ -365,7 +364,13 @@ Click `Zoom` in the `Plots` tab for a clearer view, and it should look like this
 
 Pretty interpretable! We can identify **food chains** from our web and locate the **apex predators** –note that some nodes, for example _Corduligester boltonii_ and _Macropelopia nebulosa_ are surrounded by many arrowheads. In addition, most species seem to be rather generalist with many links of low strength, with the exception of _Leuctra nigra_ being the dominant prey for _Siphonoperla torrentium_ and _Dicranotas sp._. 
 
-In case there are still **label overlaps** after zooming, you can always **save the plot as an image** and adjust its width and height. For my sample code, this is my recommended dimensions: `ggsave("food_web_plot.png", plot = food_web_network, width = 15, height = 15, dpi = 300) `. The image `food_web_plot.png` will be saved in the working directory. 
+<div style="background-color: #c4f5c9; padding: 15px; border-radius: 10px; border: 2px solid #c4f5c9;">
+    In case there are still <strong>label overlaps</strong> after zooming, you can always <strong>save the plot as an image</strong> and adjust its width and height. For my sample code, this is my recommended dimensions:
+    <pre style="background-color: #f6f6f6; padding: 10px; border-radius: 5px; border: 1px solid #ddd; overflow-x: auto;">
+<code>ggsave("food_web_plot.png", plot = food_web_network, width = 15, height = 15, dpi = 300)</code>
+    </pre>
+    The image <code>food_web_plot.png</code> will be saved in the working directory.
+</div>
 
 ### 2b.	Visualise data as heatmap with `ggplot2`
 
@@ -484,12 +489,14 @@ Throughout Section 3 I'll base all statistical calculations and results on _Cord
 # Define the species to remove 
 target_species <- "Cordulegaster boltonii" # Replace Cordulegaster boltonii with the name of your species
 ```
-If your species name is invalid, check if it exists using the below code (replace “`food_web_plot`” with your `igraph` object’s name if necessary):  
+<div style="background-color: #c4f5c9; padding: 15px; border-radius: 10px; border: 2px solid #c4f5c9;">
+    If your species name is invalid, check if it exists using the below code (replace <code>“food_web_plot”</code> with your <code>igraph</code> object’s name if necessary):
+    <pre style="background-color: #f6f6f6; padding: 10px; border-radius: 5px; border: 1px solid #ddd; overflow-x: auto;">
+<code>species_list <- V(food_web_plot)$name
+print(species_list)</code>
+    </pre>
+</div>
 
-```r
-species_list <- V(food_web_plot)$name
-print(species_list)
-```
 Now that we have defined the inputs, we can expect our function structure to look like this:  
 <p style="text-align: center;"><code>function("food_web_plot", "species_to_remove"){…}</code></p>
 
@@ -594,21 +601,23 @@ In our case, under the null hypothesis (no single species removal cause signific
 
 #### I. Run 1000 randomized trials
 
-Each time you run a function that randomly selects its inputs, the output varies. Therefore, before we begin with the function, we can set a **seed** so we could revisit our results with the exact same null distribution, using `set.seed()`. 
-
-Here’s a code snippet to show the magic of `set.seed()`. Try run it yourself!
-
-```r
-set.seed(123)  # Initial seed
+<div style="background-color: #c4f5c9; padding: 15px; border-radius: 10px; border: 2px solid #c4f5c9;">
+    Each time you run a function that randomly selects its inputs, the output varies. Therefore, before we begin with the function, we can set a <strong>seed</strong> so we could revisit our results with the exact same null distribution, using <code>set.seed()</code>.
+    <p>Here’s a code snippet to show the magic of <code>set.seed()</code>. Try run it yourself!</p>
+    <pre style="background-color: #f6f6f6; padding: 10px; border-radius: 5px; border: 1px solid #ddd; overflow-x: auto;">
+<code>set.seed(123)  # Initial seed
 random_numbers_1 <- sample(1:100, 5) 
 print(random_numbers_1)
 # If you run the same code later and set the seed to 123 again:
 set.seed(123)  # Use the same seed
 random_numbers_2 <- sample(1:100, 5)
-print(random_numbers_2)
-```
-You’ll notice that`random_numbers_1` is the same as `random_numbers_2`! Setting a seed is optional, but it increases reproducibility. 
-Finally, going back to our main objective – we need to tell R to execute the task 1000 times. We can use `replicate(“number of replicates”, {“tasks”})` for repeating tasks. 
+print(random_numbers_2)</code>
+    </pre>
+    <p>You’ll notice that <code>random_numbers_1</code> is the same as <code>random_numbers_2</code>! Setting a seed is optional, but it increases reproducibility.</p>
+</div>
+
+
+Going back to our main objective – we need to tell R to execute the task 1000 times. We can use `replicate(“number of replicates”, {“tasks”})` for repeating tasks. 
 Our code will start with something like this: 
 
 <p style="text-align: center;"><code>replicate(1000, { ... })</code></p>
