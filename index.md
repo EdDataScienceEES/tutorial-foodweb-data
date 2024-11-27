@@ -581,12 +581,18 @@ At this point, you might notice there’s still an unsolved problem with this gr
 
 But here's the trick – convert the heatmap into an **interactive plot** via `plotly`. `plotly` is a data visualization library that enables features like zooming, panning, tooltips, and real-time interactivity. In this tutorial, we will utilize this package to **display normalized strength values when our cursor hovers over the tile**. 
 
-```r
-# Convert the ggplot heatmap to an interactive plotly plot
-interactive_heatmap <- ggplotly(heatmap_plot) 
-# Display the interactive plot
-interactive_heatmap
-```
+<div style="position: relative;">
+    <button onclick="copyCode('code-block-plotly')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+    <pre id="code-block-plotly">
+    ```r
+    # Convert the ggplot heatmap to an interactive plotly plot
+    interactive_heatmap <- ggplotly(heatmap_plot) 
+    # Display the interactive plot
+    interactive_heatmap
+    ```
+    </pre>
+</div>
+
 
 Here’s how the labels should show up when you hover over a tile:
 
