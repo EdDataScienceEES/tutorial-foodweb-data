@@ -127,7 +127,11 @@ trophic_links <- TLPS(BroadstoneStream) # Extract trophic links (prey-predator i
 properties <- BroadstoneStream[["properties"]] # Extract properties (unit key)
 
 ```
-Alternatively, if you don’t wish to install `cheddar`, the data frames (nodes.csv and trophiclinks.csv) are included in [this](https://github.com/EdDataScienceEES/tutorial-keenmustard.git) `Github` repository, which also holds this tutorial’s sample script.   
+<div style="background-color: #c4f5c9; padding: 15px; border-radius: 10px; border: 2px solid #c4f5c9;">
+    Alternatively, if you don’t wish to install <code>cheddar</code>, the data frames (<code>nodes.csv</code>, <code>properties.csv</code>, and <code>trophic_links.csv</code>) are included in 
+    <a href="https://github.com/EdDataScienceEES/tutorial-keenmustard.git" style="color: #0077cc; text-decoration: none;">this</a> 
+    <code>Github</code> repository, which also holds this tutorial’s sample script.
+</div>
 
 ```r
 # ALTERNATIVE: To directly access data without cheddar, instead of ("BroadstoneStream"), use the below code:
@@ -294,13 +298,19 @@ The most straightforward and common way to present feeding relationships is to u
 # Convert our food_web data frame to an igraph object
 food_web_plot <- graph_from_data_frame(food_web, directed = TRUE)
 ```
-What we just did was to make a plottable object `food_web_plot` using the `igraph` function, `graph_from_data_frame()`. `directed = TRUE` tells `igraph` that the links are **directional** – only ‘ prey to predator ’ is valid, not the other way round. If you are curious, you could see the structure of the plottable `igraph` object with:
+What we just did was to make a plottable object `food_web_plot` using the `igraph` function, `graph_from_data_frame()`. `directed = TRUE` tells `igraph` that the links are **directional** – only ‘ prey to predator ’ is valid, not the other way round. 
 
-```r
-# OPTIONAL: View what igraph did to our data!
-print(food_web_plot)
-```
-A _very_ lengthy output will be returned. Essentially, the object is comprised of: a layout table containing 27 rows and 6 columns (all information from the original table), 3 `ggplot2`-like layers, an a bunch of other properties suited for plotting. This way, our data becomes compatible with the plotting commands we are about to use: 
+<div style="background-color: #c4f5c9; padding: 15px; border-radius: 10px; border: 2px solid #c4f5c9;">
+    <p>If you are curious, you could see the structure of the plottable <code>igraph</code> object with:</p>
+    <pre style="background-color: #f6f6f6; padding: 10px; border-radius: 5px; border: 1px solid #ddd; overflow-x: auto;">
+<code># OPTIONAL: View what igraph did to our data!
+print(food_web_plot)</code>
+    </pre>
+    <p>A <em>very</em> lengthy output will be returned. Essentially, the object is comprised of: a layout table containing 27 rows and 6 columns (all information from the original table), 3 <code>ggplot2</code>-like layers, and a bunch of other properties suited for plotting.</p>
+</div>
+
+
+This way, our data becomes compatible with the plotting commands we are about to use: 
 
 - `geom_node_point()` :directly identifies nodes from our data and plot them as points
 - `geom_edge_link()`: adds a layer of geometry to represent network links
@@ -461,7 +471,7 @@ Let's recall how to build a function. The format of a function is `function(“i
 If we want the function to read our food web, the first thing we should input is obviously our `igraph` object `food_web_plot` that contains all feeding relationships. We also need to tell the function which species to remove, so let’s make another simple object:  
 
 <figure style="text-align: center;">
-    <img src="figures/cordulegaster_boltonii.png" alt="Img">
+    <img src="figures/cordulegaster_boltonii.jpg" alt="Img">
     <figcaption style="color: grey;">
         <em>Cordulegaster boltonii</em> (Golden-ringed dragonfly), a fierce predator that feeds on nymphs of other invertebrates in freshwater ecosystems. Source: Harm Alberts on observation.org
     </figcaption>
