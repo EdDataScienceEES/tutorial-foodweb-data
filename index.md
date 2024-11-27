@@ -121,8 +121,10 @@ To start off, create a new R script with a few lines of information at the top a
 
 Now, let’s install and load libraries of all packages required in this tutorial, and import the dataset from `cheddar`. 
 
-```r
-# Install arequired packages (omit if you already have them installed)
+<div class="code-container" style="position: relative;">
+    <button class="copy-button" onclick="copyCode('code-block-1')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+    <pre id="code-block-1">
+# Install required packages (omit if you already have them installed)
 install.packages("cheddar") # data and functions for analysing/visualising food web data
 install.packages("tidyverse") # includes data wrangling tools such as dplyr, tidyr
 install.packages("ggplot2") # a useful graphic display tool
@@ -143,29 +145,48 @@ data("BroadstoneStream")
 node_properties <- NPS(BroadstoneStream) # Extract node properties (species data)
 trophic_links <- TLPS(BroadstoneStream) # Extract trophic links (prey-predator interactions)
 properties <- BroadstoneStream[["properties"]] # Extract properties (unit key)
+    </pre>
+</div>
 
-```
 <div style="background-color: #c4f5c9; padding: 15px; border-radius: 10px; border: 2px solid #c4f5c9;">
     Alternatively, if you don’t wish to install <code>cheddar</code>, the data frames (<code>nodes.csv</code>, <code>properties.csv</code>, and <code>trophic_links.csv</code>) are included in 
     <a href="https://github.com/EdDataScienceEES/tutorial-keenmustard.git" style="color: #0077cc; text-decoration: none;">this</a> 
     <code>Github</code> repository, which also holds this tutorial’s sample script.
-    <pre style="background-color: #f6f6f6; padding: 10px; border-radius: 5px; border: 1px solid #ddd; overflow-x: auto;">
-<code># ALTERNATIVE: To directly access data without cheddar, instead of ("BroadstoneStream"), use the below code:
+    <div class="code-container" style="position: relative;">
+        <button class="copy-button" onclick="copyCode('code-block-2')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+        <pre id="code-block-2">
+# ALTERNATIVE: To directly access data without cheddar, instead of ("BroadstoneStream"), use the below code:
 node_properties <- read.csv("broadstonestream_data/nodes.csv")   # Extract node properties (species data)
 trophic_links <- read.csv("broadstonestream_data/trophic_links.csv")  # Extract trophic links (prey-predator interactions)
-properties <- read.csv("broadstonestream_data/properties.csv")  # Extract properties (unit key)</code>
-    </pre>
+properties <- read.csv("broadstonestream_data/properties.csv")  # Extract properties (unit key)
+        </pre>
+    </div>
 </div>
 
-
-There are 3 data frames in total - `trophic_links`,`node properties` and `properties`. `properties` is not required in calculations, but it tells us about the units used. Let’s see what we've got:
-
-```r
+<div class="code-container" style="position: relative;">
+    <button class="copy-button" onclick="copyCode('code-block-3')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+    <pre id="code-block-3">
 # Examine data properties
 str(properties)
 str(node_properties)
 str(trophic_links)
-```
+    </pre>
+</div>
+
+<script>
+    function copyCode(codeBlockId) {
+        const code = document.getElementById(codeBlockId);
+        const textarea = document.createElement('textarea');
+        textarea.value = code.textContent;
+        document.body.appendChild(textarea);
+        textarea.select();
+        textarea.setSelectionRange(0, 99999);
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        alert('Code copied to clipboard!');
+    }
+</script>
+
 And you should be greeted with the below information in the console: 
 
 <table style="width:100%; border: 1px solid black; border-collapse: collapse;">
