@@ -759,8 +759,8 @@ In the last part, we have already defined which species to remove. Everything is
     <button onclick="copyCode('code-block-call-function')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
     <pre id="code-block-call-function">
     # Call the function now and save results as a new object
-    result <- calculate_disconnections(food_web_plot, target_species)
-    print(result)
+    observed_disconnections <- calculate_disconnections(food_web_plot, target_species)
+    print(observed_disconnections)
     </pre>
 </div>
 
@@ -881,15 +881,7 @@ Last but not least, to statistically determine the significance of our results, 
     </pre>
 </div>
 
-Eh? An error is returned: 
-  
-```
-Error in mean(null_distribution >= observed_disconnections) : 
-  'list' object cannot be coerced to type 'integer'
-  
-```
-
-_Why_ was that the case? Let's check the **class** of `null_distribution`. 
+Eh? An error is returned _Why_ was that the case? Let's check the **class** of `null_distribution`. 
 
 And... this is the culprit: 
 
@@ -908,7 +900,7 @@ R cannot comprehend calculating p-value from `list`. Therefore, we have to `unli
 
 Great! Now try run `p_value <- mean(null_distribution >= observed_disconnections)` again. 
 
-And here comes the same error... because `observed_disconnections` is a whole table of characters and integers. Therefore, we have to extract the number of disconnections using: 
+And here comes another error... because `observed_disconnections` is a whole table of characters and integers. Therefore, we have to extract the number of disconnections using: 
 
 <div style="position: relative;">
     <button onclick="copyCode('code-block-unlistnull')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>

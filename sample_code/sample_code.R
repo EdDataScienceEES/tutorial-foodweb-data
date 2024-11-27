@@ -198,8 +198,8 @@ calculate_disconnections <- function(food_web_plot, target_species) {
 # 3b.	Simulation of species removal to measure ecosystem impacts
 
 # Call the function now and save results as a new object
-results <- calculate_disconnections(food_web_plot, target_species)
-print(results)
+observed_disconnections <- calculate_disconnections(food_web_plot, target_species)
+print(observed_disconnections)
 
 # -------------------------------------
 
@@ -216,7 +216,7 @@ null_distribution <- replicate(1000, {
 
 # Calculate the p-value
 # Number of disconnections first
-observed_disconnections <- results$disconnections[[1]]
+observed_disconnections <- observed_disconnections$disconnections[[1]]
 null_distribution <- unlist(null_distribution)
 
 p_value <- mean(null_distribution >= observed_disconnections)
