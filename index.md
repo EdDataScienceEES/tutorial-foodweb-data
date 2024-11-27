@@ -513,42 +513,50 @@ Pretty interpretable! We can identify **food chains** from our web and locate th
 
 Food web networks give a holistic view of the ecosystem’s feeding relations, but in case you would like to focus more on the **quantitative aspects** of the web, **biomass flow heat map** is the better alternative since it displays interaction strength in a clearer manner compared to a food web network.
 
-To build a heat map, we can stick to `ggplot2`, using the `geom_tile()` function. It creates rectangular tiles where the fill colour of each tile represents the value of a variable. Each tile corresponds to a specific **pair of variables** on the x and y axes (in our case, the predator and the prey), and the **colour gradient** encodes a **third variable**. Use the code below to build a simple heat map using our `food_web` data frame: 
+To build a heat map, we can stick to `ggplot2`, using the `geom_tile()` function. It creates rectangular tiles where the fill colour of each tile represents the value of a variable. Each tile corresponds to a specific **pair of variables** on the x and y axes (in our case, the predator and the prey), and the **colour gradient** encodes a **third variable**. Use the code below to build a simple heat map using our `food_web` data frame:
 
-```r
-# Build a biomass flow heatmap (predator on horizontal axis, prey on vertical axis, colour represents normalized interaction strength)
-heatmap_plot <- ggplot(food_web, aes(x = consumer, y = resource, fill = normalized_strength)) +
-  geom_tile() + # Add a tile plot layer as the heatmap
-  labs( # Add the title and labels
-    title = "Food Web Heatmap of Interaction Strength",
-    x = "Predator", 
-    y = "Prey")
-# Let's take a look at the heatmap
-print(heatmap_plot) 
-```
-And the heat map should look similar to this: 
+<div style="position: relative;">
+    <button onclick="copyCode('code-block-5')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+    ```r
+    # Build a biomass flow heatmap (predator on horizontal axis, prey on vertical axis, colour represents normalized interaction strength)
+    heatmap_plot <- ggplot(food_web, aes(x = consumer, y = resource, fill = normalized_strength)) +
+      geom_tile() + # Add a tile plot layer as the heatmap
+      labs( # Add the title and labels
+        title = "Food Web Heatmap of Interaction Strength",
+        x = "Predator", 
+        y = "Prey")
+    # Let's take a look at the heatmap
+    print(heatmap_plot) 
+    ```
+</div>
+
+And the heat map should look similar to this:
 
 <center><img src="figures/ugly_heat_map.jpeg" alt="Img"></center>
 
 We have just created the _most_ basic heatmap! Obviously, **there are some major issues with it** – the labels are horizontal by default on the x axis, the grid doesn’t align with the tiles, and the colours are not distinct enough from each other. We can fix those flaws with more lines of code:
 
-```r
-# Improve the heatmap
-heatmap_plot <- ggplot(food_web, aes(x = consumer, y = resource, fill = normalized_strength)) +
-  geom_tile(color = "#4d4d4d", size = 0.2) + # Colour the border so we can easily count the number of tiles
-  scale_fill_gradient(low = "green", high = "red",# Change to a more distinctive colour gradient
-                      name = "Normalized Interaction Strength")+  # Set the legend title here
-  theme_minimal() + # choose a 
-  labs(title = "Food Web Heatmap of Interaction Strength", # Add the title and labels
-       x = "Predator", y = "Prey") +
-  theme(
-    axis.text.x = element_text(angle = 90, hjust = 1), # Rotate labels such that they don't overlap on the x-axis
-    title = element_text(hjust = 0.5), # Centre the title
-    panel.grid = element_blank(), # Removes confusing grid
-  ) 
-# View the heatmap
-print(heatmap_plot)
-```
+<div style="position: relative;">
+    <button onclick="copyCode('code-block-6')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+    ```r
+    # Improve the heatmap
+    heatmap_plot <- ggplot(food_web, aes(x = consumer, y = resource, fill = normalized_strength)) +
+      geom_tile(color = "#4d4d4d", size = 0.2) + # Colour the border so we can easily count the number of tiles
+      scale_fill_gradient(low = "green", high = "red",# Change to a more distinctive colour gradient
+                          name = "Normalized Interaction Strength")+  # Set the legend title here
+      theme_minimal() + # choose a 
+      labs(title = "Food Web Heatmap of Interaction Strength", # Add the title and labels
+           x = "Predator", y = "Prey") +
+      theme(
+        axis.text.x = element_text(angle = 90, hjust = 1), # Rotate labels such that they don't overlap on the x-axis
+        title = element_text(hjust = 0.5), # Centre the title
+        panel.grid = element_blank(), # Removes confusing grid
+      ) 
+    # View the heatmap
+    print(heatmap_plot)
+    ```
+</div>
+
 A neat, readable plot is now ready: 
 
 <center><img src="figures/pretty_heat_map.jpg" alt="Img"></center>
