@@ -42,12 +42,12 @@ Species interactions in ecosystems form the basis of many ecological studies, bu
   <div style="display:inline-block; text-align:center; width:45%; margin-right: 10px;">
     <img src="figures/network_example.jpg" width="100%" />
     <br>
-    <em>Heat maps showing carbon flow in an oceanic food web, Richards Bay, South Africa (Scharler et al. 2016). Source: Pawluczuk and Iskrzyński, 2022</em>
+    Heat maps showing carbon flow in an oceanic food web, Richards Bay, South Africa (Scharler et al. 2016). (Source: <a href="https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.13839" style="color: inherit; text-decoration: none;">Pawluczuk and Iskrzyński, 2022</a>)
   </div>
   <div style="display:inline-block; text-align:center; width:45%;">
     <img src="figures/heatmap_example.jpg" width="100%" />
     <br>
-    <em>Food web network graph of the Prince Willian Sound, Alaska (Dalsgaard et al., 1997). Source: Pawluczuk and Iskrzyński, 2022</em>
+    Food web network graph of the Prince William Sound, Alaska (Dalsgaard et al., 1997). (Source: <a href="https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.13839" style="color: inherit; text-decoration: none;">Pawluczuk and Iskrzyński, 2022</a>)
   </div>
 </p>
 
@@ -73,12 +73,12 @@ You can get all of the resources for this tutorial from <a href="https://github.
   <div style="display:inline-block; text-align:center; width:45%; margin-right: 10px;">
     <img src="figures/math_network.png" width="100%" />
     <br>
-    <em> A network in math, where nodes are called 'vertices', and links are called 'edges', just like how most R functions do. Nykamp DQ, “An introduction to networks.” From Math Insight. http://mathinsight.org/network_introduction</em>
+    <em> A network in math, where nodes are called 'vertices', and links are called 'edges', just like how most R functions do. (Source: <a href="https://mathinsight.org/network_introduction" style="color: inherit; text-decoration: none;">Nykamp DQ</a>)</em>
   </div>
   <div style="display:inline-block; text-align:center; width:45%;">
     <img src="figures/ecology_network.png" width="100%" />
     <br>
-    <em>A food web network in ecological contexts, where the organisms are nodes. and lines between them indicate feeding relationships. Source: Garrison, J. (2022). Benthic invertebrate food webs in the Baltic Sea: Anthropogenic pressure effects and methodological advancements</em>
+    <em>A food web network in ecological contexts, where the organisms are nodes, and lines between them indicate feeding relationships. (Source: <a href="https://www.researchgate.net/publication/362504250_Benthic_invertebrate_food_webs_in_the_Baltic_Sea_Anthropogenic_pressure_effects_and_methodological_advancements" style="color: inherit; text-decoration: none;">Garrison, J. (2022)</a>). Benthic invertebrate food webs in the Baltic Sea: Anthropogenic pressure effects and methodological advancements</em>
   </div>
 </p>
 
@@ -87,7 +87,7 @@ To map energy flow or predator-prey interactions in an ecosystem, ecologists oft
 
 <figure style="text-align: center;">
     <img src="figures/cheddar_use.png" alt="Img">
-    <figcaption style="color: grey;">There are many purposes of cheddar, but we will stick to ggplot and ggraph for simplicity today...</figcaption>
+    <figcaption style="color: grey;"> Figure 1: There are many purposes of cheddar, but we will stick to ggplot and ggraph for simplicity today... (Source: <a href="https://quicklizard99.github.io/cheddar/" style="color: grey; text-decoration: none;">cheddar</a>) </figcaption>
 </figure>
 
 
