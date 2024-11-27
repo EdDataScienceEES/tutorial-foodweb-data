@@ -401,32 +401,49 @@ Great! We’ve now got some neat data ready for visualisation, all in `food_web`
 
 ### 2a.	Visualise data as food web network with `ggraph`
 
-The most straightforward and common way to present feeding relationships is to use a **food web network**, with links connecting labelled nodes. To achieve that, we will firstly be using `igraph`, a package that specialises in converting data into network. Run the code below: 
+<p>
+    The most straightforward and common way to present feeding relationships is to use a <strong>food web network</strong>, with links connecting labelled nodes. To achieve that, we will firstly be using <code>igraph</code>, a package that specialises in converting data into a network. Run the code below:
+</p>
 
-```r
+<div class="code-container" style="position: relative;">
+    <button class="copy-button" onclick="copyCode('code-block-1')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+    <pre id="code-block-1">
 # Convert our food_web data frame to an igraph object
 food_web_plot <- graph_from_data_frame(food_web, directed = TRUE)
-```
-What we just did was to make a plottable object `food_web_plot` using the `igraph` function, `graph_from_data_frame()`. `directed = TRUE` tells `igraph` that the links are **directional** – only ‘ prey to predator ’ is valid, not the other way round. 
+    </pre>
+</div>
+
+<p>
+    What we just did was to make a plottable object <code>food_web_plot</code> using the <code>igraph</code> function, <code>graph_from_data_frame()</code>. <code>directed = TRUE</code> tells <code>igraph</code> that the links are <strong>directional</strong> – only ‘prey to predator’ is valid, not the other way round.
+</p>
 
 <div style="background-color: #c4f5c9; padding: 15px; border-radius: 10px; border: 2px solid #c4f5c9;">
     <p>If you are curious, you could see the structure of the plottable <code>igraph</code> object with:</p>
-    <pre style="background-color: #f6f6f6; padding: 10px; border-radius: 5px; border: 1px solid #ddd; overflow-x: auto;">
-<code># OPTIONAL: View what igraph did to our data!
-print(food_web_plot)</code>
-    </pre>
+    <div class="code-container" style="position: relative;">
+        <button class="copy-button" onclick="copyCode('code-block-2')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+        <pre id="code-block-2">
+# OPTIONAL: View what igraph did to our data!
+print(food_web_plot)
+        </pre>
+    </div>
     <p>A <em>very</em> lengthy output will be returned. Essentially, the object is comprised of: a layout table containing 27 rows and 6 columns (all information from the original table), 3 <code>ggplot2</code>-like layers, and a bunch of other properties suited for plotting.</p>
 </div>
 
+<p>
+    This way, our data becomes compatible with the plotting commands we are about to use:
+</p>
+<ul>
+    <li><code>geom_node_point()</code> : directly identifies nodes from our data and plots them as points</li>
+    <li><code>geom_edge_link()</code>: adds a layer of geometry to represent network links</li>
+</ul>
 
-This way, our data becomes compatible with the plotting commands we are about to use: 
+<p>
+    In a format similar to <code>ggplot2</code> plots, we can code for a network to display our feeding relations:
+</p>
 
-- `geom_node_point()` :directly identifies nodes from our data and plot them as points
-- `geom_edge_link()`: adds a layer of geometry to represent network links
-
-In a format similar to `ggplot2` plots, we can code for a network to display our feeding relations: 
-
-```r
+<div class="code-container" style="position: relative;">
+    <button class="copy-button" onclick="copyCode('code-block-3')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+    <pre id="code-block-3">
 # Coding for a food web network and save it as an object
 food_web_network <- ggraph(food_web_plot) +  # Calls for a plot using package ggraph
   geom_node_point() +  # Add a layer to plot our nodes as points 
@@ -434,7 +451,9 @@ food_web_network <- ggraph(food_web_plot) +  # Calls for a plot using package gg
   geom_node_text(aes(label = name), repel = TRUE, size = 4)   # Lastly, label our nodes!
 # View our plot 
 print(food_web_network)
-```
+    </pre>
+</div>
+
 And this, is what the plot looks like:
 
 <center><img src="figures/ugly_food_web.jpeg" alt="Img"></center>
