@@ -523,6 +523,7 @@ To build a heat map, we can stick to `ggplot2`, using the `geom_tile()` function
 
 <div style="position: relative;">
     <button onclick="copyCode('code-block-heat')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+    <pre id="code-block-heat">
     ```r
     # Build a biomass flow heatmap (predator on horizontal axis, prey on vertical axis, colour represents normalized interaction strength)
     heatmap_plot <- ggplot(food_web, aes(x = consumer, y = resource, fill = normalized_strength)) +
@@ -534,7 +535,9 @@ To build a heat map, we can stick to `ggplot2`, using the `geom_tile()` function
     # Let's take a look at the heatmap
     print(heatmap_plot) 
     ```
+    </pre>
 </div>
+
 
 And the heat map should look similar to this:
 
@@ -544,6 +547,7 @@ We have just created the _most_ basic heatmap! Obviously, **there are some major
 
 <div style="position: relative;">
     <button onclick="copyCode('code-block-heatpretty')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+    <pre id="code-block-heatpretty">
     ```r
     # Improve the heatmap
     heatmap_plot <- ggplot(food_web, aes(x = consumer, y = resource, fill = normalized_strength)) +
@@ -561,7 +565,9 @@ We have just created the _most_ basic heatmap! Obviously, **there are some major
     # View the heatmap
     print(heatmap_plot)
     ```
+    </pre>
 </div>
+
 
 A neat, readable plot is now ready: 
 
