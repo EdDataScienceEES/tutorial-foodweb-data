@@ -900,7 +900,9 @@ R cannot comprehend calculating p-value from `list`. Therefore, we have to `unli
 
 Great! Now try run `p_value <- mean(null_distribution >= observed_disconnections)` again. 
 
-And here comes another error... because `observed_disconnections` is a whole table of characters and integers. Therefore, we have to extract the number of disconnections using: 
+And here comes ... no errors? Did we succeed yet?
+
+**NO**, the value generated now is not the p-value yet... because `observed_disconnections` is a whole table of characters and integers. Therefore, we have to extract the number of disconnections using: 
 
 <div style="position: relative;">
     <button onclick="copyCode('code-block-unlistnull')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
