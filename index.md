@@ -42,20 +42,19 @@ _Created by Annette Wong - 27th November 2024_
 ### Key Steps you will go through in this tutorial:
 
 1. Extract, subset and modify data using `cheddar` and `dplyr`  
-   a. Download data from `cheddar`
-   b. Combine node and trophic link data from `cheddar` into long format table
+   a. Download data from `cheddar`  
+   b. Combine node and trophic link data from `cheddar` into long format table  
    c. Calculate biomass flow and interaction strength  
-
 
 2. Visualise feeding relations of a food web using `igraph`, `ggraph` and `ggplot2`  
    a. Visualise feeding relationships by `ggraph`ing a network based on `igraph` object  
-   b. Visualise biomass flow as heatmap in `ggplot2` using `geom_tile` as a template 
+   b. Visualise biomass flow as heatmap in `ggplot2` using `geom_tile` as a template  
    c. Create an interactive heatmap  
 
-
 3. Develop and apply a function to evaluate the impact of species removal  
-   a. Build functions to simulate secondary extinctions by removing targeted and random species 
+   a. Build functions to simulate secondary extinctions by removing targeted and random species  
    b. Compare targeted species removal to random removal using a permutation test
+
 
 
 ---------------------------
