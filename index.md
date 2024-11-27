@@ -13,7 +13,7 @@
         }
 
         .center-fit {
-            max-width: 80%; /* Make image 80% of original size */
+            max-width: 80%;
             max-height: 80vh;
             margin: auto;
             display: block;
@@ -27,7 +27,7 @@
             color: white;
             font-size: 14px;
             text-align: right;
-            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            background-color: rgba(0, 0, 0, 0.5);
             padding: 5px;
             border-radius: 5px;
         }
@@ -38,17 +38,11 @@
             left: 50%;
             transform: translate(-50%, -50%);
             color: white;
-            font-size: 30px; /* Adjust font size */
+            font-size: 30px;
             text-align: center;
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
-            background-color: rgba(0, 0, 0, 0.5); /* Transparent background */
+            background-color: rgba(0, 0, 0, 0.5);
             padding: 15px;
             border-radius: 10px;
-        }
-
-        .imgbox:hover .textbox {
-            opacity: 1; /* Show textbox on hover */
         }
     </style>
 </head>
