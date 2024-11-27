@@ -1,29 +1,66 @@
-<div style="position: relative; display: inline-block; width: 80vw;">
-    <img src="figures/freshwater_ecosystem.jpg" alt="Freshwater Ecosystem" style="width: 100%; height: auto;">
-    <div style="
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: white;
-        font-size: 36px;
-        font-weight: bold;
-        text-align: center;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-        padding: 10px;
-    ">
-        Manipulating, Visualising, and Statistically Interpreting Food Web Data on R
+<html>
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .imgbox {
+            position: relative;
+            display: grid;
+            height: 100%;
+        }
+
+        .center-fit {
+            max-width: 80%; /* Make image 80% of original size */
+            max-height: 80vh;
+            margin: auto;
+            display: block;
+            width: 100%;
+        }
+
+        .caption {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            color: white;
+            font-size: 14px;
+            text-align: right;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .textbox {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 30px; /* Adjust font size */
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            background-color: rgba(0, 0, 0, 0.5); /* Transparent background */
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .imgbox:hover .textbox {
+            opacity: 1; /* Show textbox on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="imgbox">
+        <img class="center-fit" src="figures/freshwater_ecosystem.jpg" alt="Freshwater Ecosystem">
+        <div class="textbox">Manipulating, Visualising and Statistically Interpreting Food Web Data on R</div>
+        <div class="caption">Photo by Jason Patrick Ross</div>
     </div>
-    <div style="
-        text-align: right;
-        font-size: 14px;
-        color: #555;
-        margin-top: 5px;
-        padding-right: 10px;
-    ">
-        Photo by Jason Patrick Ross
-    </div>
-</div>
+</body>
+</html>
+
 
 
 _Created by Annette Wong - 27th November 2024_
