@@ -648,16 +648,25 @@ If we want the function to read our food web, the first thing we should input is
 
 Throughout Section 3 I'll base all statistical calculations and results on _Cordulegaster boltonii_ , but you could always pick your own species instead. 
 
-```r
-# Define the species to remove 
-target_species <- "Cordulegaster boltonii" # Replace Cordulegaster boltonii with the name of your species
-```
+<div style="position: relative;">
+    <button onclick="copyCode('code-block-species')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+    <pre id="code-block-species">
+    ```r
+    # Define the species to remove 
+    target_species <- "Cordulegaster boltonii" # Replace Cordulegaster boltonii with the name of your species
+    ```
+    </pre>
+</div>
+
 <div style="background-color: #c4f5c9; padding: 15px; border-radius: 10px; border: 2px solid #c4f5c9;">
     If your species name is invalid, check if it exists using the below code (replace <code>“food_web_plot”</code> with your <code>igraph</code> object’s name if necessary):
-    <pre style="background-color: #f6f6f6; padding: 10px; border-radius: 5px; border: 1px solid #ddd; overflow-x: auto;">
+    <div style="position: relative;">
+        <button onclick="copyCode('code-block-checkspecies')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+        <pre id="code-block-checkspecies">
 <code>species_list <- V(food_web_plot)$name
 print(species_list)</code>
-    </pre>
+        </pre>
+    </div>
 </div>
 
 Now that we have defined the inputs, we can expect our function structure to look like this:  
@@ -703,33 +712,45 @@ tibble(
 
 Now, combine all the body lines into the `{}` bracket and there we go:  
 
-```r
-# Function to calculate secondary extinctions
-calculate_disconnections <- function(food_web_plot, target_species) {
-  # Remove the target species
-  new_network <- delete_vertices(food_web_plot, target_species)
-  
-  # Identify species that are disconnected 
-  disconnected_species <- V(new_network)$name[degree(new_network, mode = "all") == 0]
-  
-  # Return the number of disconnections and species names
-  tibble(
-    removed_species = unlist(target_species),  # Using list to keep species name(s) in a list format
-    disconnected_species = unlist(disconnected_species),  # Store disconnected species names
-    disconnections = length(disconnected_species),
-    remaining_species = vcount(new_network)
-  )
-}
-```
+<div style="position: relative;">
+    <button onclick="copyCode('code-block-calculate-disconnections')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+    <pre id="code-block-calculate-disconnections">
+    ```r
+    # Function to calculate secondary extinctions
+    calculate_disconnections <- function(food_web_plot, target_species) {
+      # Remove the target species
+      new_network <- delete_vertices(food_web_plot, target_species)
+      
+      # Identify species that are disconnected 
+      disconnected_species <- V(new_network)$name[degree(new_network, mode = "all") == 0]
+      
+      # Return the number of disconnections and species names
+      tibble(
+        removed_species = unlist(target_species),  # Using list to keep species name(s) in a list format
+        disconnected_species = unlist(disconnected_species),  # Store disconnected species names
+        disconnections = length(disconnected_species),
+        remaining_species = vcount(new_network)
+      )
+    }
+    ```
+    </pre>
+</div>
+
 ### 3b. Simulation of species removal to measure ecosystem impacts
 
 In the last part, we have already defined which species to remove. Everything is ready. To start the simulation, all we’ve got to do is run the function now!
 
-```r
-# Call the function now and save results as a new object
-result <- calculate_secondary_extinctions(food_web_plot, target_species)
-print(result)
-```
+<div style="position: relative;">
+    <button onclick="copyCode('code-block-call-function')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+    <pre id="code-block-call-function">
+    ```r
+    # Call the function now and save results as a new object
+    result <- calculate_secondary_extinctions(food_web_plot, target_species)
+    print(result)
+    ```
+    </pre>
+</div>
+
 
 The output should look like this:
 
@@ -808,24 +829,36 @@ For the final line of the permutation test function, insert the function for sec
 
 For a complete block of code that generates null distribution for random species removal, let’s stitch the pieces together:
 
-```r
-# Generate null distribution…
-# We want 1000 random trials
-null_distribution <- replicate(1000, { 
-  # Randomly select 1 species only for each trial
-  random_species <- sample(V(food_web_plot)$name, 1)
-  # Calculate disconnection for the random species
-  calculate_disconnections(food_web_plot, random_species)$disconnections
-})
-```
+<div style="position: relative;">
+    <button onclick="copyCode('code-block-null-distribution')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+    <pre id="code-block-null-distribution">
+    ```r
+    # Generate null distribution…
+    # We want 1000 random trials
+    null_distribution <- replicate(1000, { 
+      # Randomly select 1 species only for each trial
+      random_species <- sample(V(food_web_plot)$name, 1)
+      # Calculate disconnection for the random species
+      calculate_disconnections(food_web_plot, random_species)$disconnections
+    })
+    ```
+    </pre>
+</div>
+
 Last but not least, to statistically determine the significance of our results, run a very simple statistical test to obtain a **p-value**. 
 
-```r
-# Calculate the p-value
-p_value <- mean(null_distribution >= observed_disconnections)
-# Print the p-value
-cat("P-value for the permutation test: ", p_value, "\n")
-```
+<div style="position: relative;">
+    <button onclick="copyCode('code-block-p-value')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+    <pre id="code-block-p-value">
+    ```r
+    # Calculate the p-value
+    p_value <- mean(null_distribution >= observed_disconnections)
+    # Print the p-value
+    cat("P-value for the permutation test: ", p_value, "\n")
+    ```
+    </pre>
+</div>
+
 Our p-value is 1, suggesting that removing the target species _Cordulegaster boltonii_ .
 
 **But does it mean as an apex predator, _Cordulegaster boltonii_ is not a keystone species?** Not necessarily. In fact, very often in freshwater ecosystems,  _Cordulegaster boltonii_ is considered a keystone species. It is most likely still important for other reasons not captured by this particular analysis, like nutrient cycling, population regulation of prey (which are predators of other species); or interactions not directly related to trophic structure. The results do NOT imply that the species can be removed without consequence, as trophic interactions and ecological dynamics might be influenced in more complex, indirect ways that aren't fully captured by this statistical test!
