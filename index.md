@@ -132,6 +132,8 @@ To start off, create a new R script with a few lines of information at the top a
             font-family: monospace;
             white-space: pre-wrap; /* Ensures long lines wrap inside the box */
             word-wrap: break-word; /* Ensures words break correctly */
+            width: auto; /* Default width based on content */
+            max-width: 100%; /* To prevent stretching beyond container */
         }
     </style>
 </head>
@@ -171,12 +173,14 @@ To start off, create a new R script with a few lines of information at the top a
         // Remove the temporary textarea
         document.body.removeChild(textarea);
         
-        // No alert for the user, as requested
+        // Display the popup message
+        alert('Code copied to clipboard!');
     }
 </script>
 
 </body>
 </html>
+
 
 
 Now, let’s install and load libraries of all packages required in this tutorial, and import the dataset from `cheddar`. 
