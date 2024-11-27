@@ -876,44 +876,17 @@ Our p-value is 1, suggesting that removing the target species _Cordulegaster bol
 
 Happy coding!
 
-
-We can also provide some useful links, include a contact form and a way to send feedback.
-
-For more on `ggplot2`, read the official <a href="https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf" target="_blank">ggplot2 cheatsheet</a>.
-
 <hr>
-#### Related tutorials: 
+#### Related tutorials from Our Coding Club and cheatsheets: 
 - [Graphics guide, mostly ggplot2](ase.tufts.edu/bugs/guide/assets/R%20Graphics%20Cookbook.pdf)
+- [Functions and loops in R](https://ourcodingclub.github.io/tutorials/funandloops/)
+- [Basic Data Manipulation](https://ourcodingclub.github.io/tutorials/data-manip-intro/)
+- [Efficient Data Manipulation](https://ourcodingclub.github.io/tutorials/data-manip-efficient/)
+
 
 <hr>
 
-#### Check out our <a href="https://ourcodingclub.github.io/links/" target="_blank">Useful links</a> page where you can find loads of guides and cheatsheets.
+#### If you have any questions about completing this tutorial, please contact me on s2472885@ed.ac.uk
 
-#### If you have any questions about completing this tutorial, please contact us on ourcodingclub@gmail.com
+#### <a href="https://docs.google.com/forms/d/e/1FAIpQLScBVasaf6uOrNXGEmiF2P9XZRv6wqkU250ehrCkTXS5D9sjvw/viewform?usp=sf_link" target="_blank">Any feedback for this tutorial will be highly valued!</a>
 
-#### <a href="INSERT_SURVEY_LINK" target="_blank">We would love to hear your feedback on the tutorial, whether you did it in the classroom or online!</a>
-
-<ul class="social-icons">
-	<li>
-		<h3>
-			<a href="https://twitter.com/our_codingclub" target="_blank">&nbsp;Follow our coding adventures on Twitter! <i class="fa fa-twitter"></i></a>
-		</h3>
-	</li>
-</ul>
-
-### &nbsp;&nbsp;Subscribe to our mailing list:
-<div class="container">
-	<div class="block">
-        <!-- subscribe form start -->
-		<div class="form-group">
-			<form action="https://getsimpleform.com/messages?form_api_token=de1ba2f2f947822946fb6e835437ec78" method="post">
-			<div class="form-group">
-				<input type='text' class="form-control" name='Email' placeholder="Email" required/>
-			</div>
-			<div>
-                        	<button class="btn btn-default" type='submit'>Subscribe</button>
-                    	</div>
-                	</form>
-		</div>
-	</div>
-</div>
