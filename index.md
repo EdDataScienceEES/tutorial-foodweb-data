@@ -73,12 +73,12 @@ You can get all of the resources for this tutorial from <a href="https://github.
   <div style="display:inline-block; text-align:center; width:45%; margin-right: 10px;">
     <img src="figures/math_network.png" width="100%" />
     <br>
-    <em> A network in math, where nodes are called 'vertices', and links are called 'edges', just like how most R functions do. (Source: <a href="https://mathinsight.org/network_introduction" style="color: inherit; text-decoration: none;">Nykamp DQ</a>)</em>
+    A network in math, where nodes are called 'vertices', and links are called 'edges', just like how most R functions do. (Source: <a href="https://mathinsight.org/network_introduction" style="color: inherit; text-decoration: none;">Nykamp DQ</a>)
   </div>
   <div style="display:inline-block; text-align:center; width:45%;">
     <img src="figures/ecology_network.png" width="100%" />
     <br>
-    <em>A food web network in ecological contexts, where the organisms are nodes, and lines between them indicate feeding relationships. (Source: <a href="https://www.researchgate.net/publication/362504250_Benthic_invertebrate_food_webs_in_the_Baltic_Sea_Anthropogenic_pressure_effects_and_methodological_advancements" style="color: inherit; text-decoration: none;">Garrison, J. (2022)</a>). Benthic invertebrate food webs in the Baltic Sea: Anthropogenic pressure effects and methodological advancements</em>
+    A food web network in ecological contexts, where the organisms are nodes, and lines between them indicate feeding relationships. (Source: <a href="https://www.researchgate.net/publication/362504250_Benthic_invertebrate_food_webs_in_the_Baltic_Sea_Anthropogenic_pressure_effects_and_methodological_advancements" style="color: inherit; text-decoration: none;">Garrison, J. (2022)</a>). 
   </div>
 </p>
 
@@ -87,7 +87,7 @@ To map energy flow or predator-prey interactions in an ecosystem, ecologists oft
 
 <figure style="text-align: center;">
     <img src="figures/cheddar_use.png" alt="Img">
-    <figcaption style="color: grey;"> Figure 1: There are many purposes of cheddar, but we will stick to ggplot and ggraph for simplicity today... (Source: <a href="https://quicklizard99.github.io/cheddar/" style="color: grey; text-decoration: none;">cheddar</a>) </figcaption>
+    <figcaption style="color: grey;"> There are many purposes of cheddar, but we will stick to ggplot and ggraph for simplicity today... (Source: <a href="https://quicklizard99.github.io/cheddar/" style="color: grey; text-decoration: none;">cheddar</a>) </figcaption>
 </figure>
 
 
@@ -478,7 +478,7 @@ If we want the function to read our food web, the first thing we should input is
 <figure style="text-align: center;">
     <img src="figures/cordulegaster_boltonii.jpg" alt="Img">
     <figcaption style="color: grey;">
-        <em>Cordulegaster boltonii</em> (Golden-ringed dragonfly), a fierce predator that feeds on nymphs of other invertebrates in freshwater ecosystems. Source: Harm Alberts on observation.org
+        <em>Cordulegaster boltonii</em> (Golden-ringed dragonfly), a fierce predator that feeds on nymphs of other invertebrates in freshwater ecosystems. (Source: <a href="https://observation.org/species/619/" style="color: grey; text-decoration: none;">Harm Alberts on observation.org</a>)
     </figcaption>
 </figure>
 
@@ -587,7 +587,7 @@ The last step is to determine **whether our target species has caused _significa
 <figure style="text-align: center;">
     <img src="figures/permutation_test.JPG" alt="Img">
     <figcaption style="color: grey;">
-        A permutation test will generate a 'null distribution'. Using this graph as an example, since 0.618 is close to the extremes in the null distribution, it is significantly higher than average, and null hypothesis is rejected. Source:  Dave Giles on R bloggers
+        A permutation test will generate a 'null distribution'. Using this graph as an example, since 0.618 is close to the extremes in the null distribution, it is significantly higher than average, and null hypothesis is rejected. (Source: <a href="https://www.r-bloggers.com/2019/04/what-is-a-permutation-test/" style="color: grey; text-decoration: none;">Dave Giles on R bloggers</a>)
     </figcaption>
 </figure>
 
