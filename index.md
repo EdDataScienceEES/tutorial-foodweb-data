@@ -52,7 +52,7 @@ _Created by Annette Wong - 27th November 2024_
    c. Create an interactive heatmap  
 
 3. Develop and apply a function to evaluate the impact of species removal  
-   a. Build functions to simulate secondary extinctions by removing targeted and random species  
+   a. Build functions to simulate disconnections by removing targeted and random species  
    b. Compare targeted species removal to random removal using a permutation test
 
 
@@ -648,8 +648,8 @@ Now, we want the function to:
     
     I. Read our food web plot, and know which species to remove.  
     II. Remove species.  
-    III. Identify the species that become disconnected (extinct) as a result of the removal.  
-    IV. Return the number of secondary extinctions.
+    III. Identify the species that become disconnected as a result of the removal.  
+    IV. Return the number of disconnections.
 
 Let's recall how to build a function. The format of a function is `function(“inputs”){“body”}`, where the inputs specify from which data frames to manipulate, and the body describes the actions of the function.  
 
@@ -732,7 +732,7 @@ Now, combine all the body lines into the `{}` bracket and there we go:
 <div style="position: relative;">
     <button onclick="copyCode('code-block-calculate-disconnections')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
     <pre id="code-block-calculate-disconnections">
-    # Function to calculate secondary extinctions
+    # Function to calculate disconnections
     calculate_disconnections <- function(food_web_plot, target_species) {
       # Remove the target species
       new_network <- delete_vertices(food_web_plot, target_species)
@@ -759,7 +759,7 @@ In the last part, we have already defined which species to remove. Everything is
     <button onclick="copyCode('code-block-call-function')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
     <pre id="code-block-call-function">
     # Call the function now and save results as a new object
-    result <- calculate_secondary_extinctions(food_web_plot, target_species)
+    result <- calculate_disconnections(food_web_plot, target_species)
     print(result)
     </pre>
 </div>
@@ -794,7 +794,7 @@ Since we only calculated disconnections for 1 target species, and our food web i
 In our case, under the null hypothesis (no single species removal cause significantly more disconnections than another), any observed differences between random removals should be small and random. If the observed statistic is significantly different from what is expected, it would be considered "unusual," and we might be inclined to reject the null hypothesis (meaning _Cordulegaster boltonii_ cause significantly more disconnections). We would want our permutation test function to:
     I.	Run 1000 randomized trials
     II.	For each trial, randomly select 1 species only
-    III.	 Calculate secondary extinctions when the random species is removed
+    III.	 Calculate disconnections when the random species is removed
 
 #### I. Run 1000 randomized trials
 
@@ -844,9 +844,9 @@ We are trying to define `random_species`, i.e. tell the function which species t
 
 #### III.	Calculate disconnections when the random species is removed
 
-Finally, we calculate the number of secondary extinctions. Sounds familiar? Because we have already done something similar in 3a.
+Finally, we calculate the number of disconnections. Sounds familiar? Because we have already done something similar in 3a.
 
-For the final line of the permutation test function, insert the function for secondary extinctions when target species is removed `calculate_disconnections()`– but change it up slightly. 
+For the final line of the permutation test function, insert the function for disconnections when target species is removed `calculate_disconnections()`– but change it up slightly. 
 
 1.	Instead of `targeted_species`, replace the input with `random_species` we defined in the last step.
 2.	Extract the disconnections data from the `tibble` output of `calculate_disconnections()`
