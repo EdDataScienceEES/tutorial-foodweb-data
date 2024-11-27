@@ -95,9 +95,9 @@ To map energy flow or predator-prey interactions in an ecosystem, ecologists oft
 
 To start off, create a new R script with a few lines of information at the top and you’re good to go (remember to use hasthags # for all annotations).
 
-<div class="code-container">
-    <button class="copy-button" onclick="copyCode()">Copy contents</button>
-    <pre id="code-block">
+<div class="code-container" style="position: relative;">
+    <button class="copy-button" onclick="copyCode('code-block-ddmmyy')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+    <pre id="code-block-ddmmyy">
 # Visualising Food Webs on R
 # Your name
 # DD/MM/YYYY
@@ -105,8 +105,8 @@ To start off, create a new R script with a few lines of information at the top a
 </div>
 
 <script>
-    function copyCode() {
-        const code = document.getElementById('code-block');
+    function copyCode(codeBlockId) {
+        const code = document.getElementById(codeBlockId);
         const textarea = document.createElement('textarea');
         textarea.value = code.textContent;
         document.body.appendChild(textarea);
@@ -117,6 +117,7 @@ To start off, create a new R script with a few lines of information at the top a
         alert('Code copied to clipboard!');
     }
 </script>
+
 
 
 Now, let’s install and load libraries of all packages required in this tutorial, and import the dataset from `cheddar`. 
