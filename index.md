@@ -359,7 +359,13 @@ trophic_links <- trophic_links %>%
 
 Finally, we can calculate <i>I</i> for each interacting pair (Hint: <i>I = <sup>M<sub>j</sub> × N<sub>j</sub></sup>/<sub>M<sub>i</sub></sub></i>) only to see the resulting values of <i>I</i> are not exactly straightforward. Fortunately, for easier interpretation, we can normalise <i>I</i>, such that it shows how much biomass one prey node contributes to a given predator species, as a proportion over the total prey biomass flux to that predator species. For instance, if a predator-prey pair has a normalised value of 0.1, it means this prey species contributes to 10% of the total biomass making up the predator’s diet.
 
-```r
+<p>
+    Now we calculate and normalize interaction strength using the data from the previous steps.
+</p>
+
+<div class="code-container" style="position: relative;">
+    <button class="copy-button" onclick="copyCode('code-block-5')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+    <pre id="code-block-5">
 # Calculate and normalise interaction strength
 food_web <- trophic_links %>% # Rename the data frame as it not only contains trophic links now
   group_by(consumer) %>%  # Normalised strengths are based on single predator 
@@ -370,7 +376,23 @@ food_web <- trophic_links %>% # Rename the data frame as it not only contains tr
     normalized_strength = interaction_strength / sum(interaction_strength, na.rm = TRUE)
   ) %>%
   ungroup()  # Ungroup after calculations to avoid accidental grouping later 
-```
+    </pre>
+</div>
+
+<script>
+    function copyCode(codeBlockId) {
+        const code = document.getElementById(codeBlockId);
+        const textarea = document.createElement('textarea');
+        textarea.value = code.textContent;
+        document.body.appendChild(textarea);
+        textarea.select();
+        textarea.setSelectionRange(0, 99999);
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        alert('Code copied to clipboard!');
+    }
+</script>
+
 Great! We’ve now got some neat data ready for visualisation, all in `food_web`.
 
 <a name="section2"></a>
