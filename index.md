@@ -464,9 +464,13 @@ Our plot contains the basic elements – nodes and links… and nothing else.
 
 But just like a `ggplot2` graph, we can add a few more lines of code to give this crude and unpolished network an upgrade! Currently, the labels are too messy, links lack direction, and the colour intensity of the links is hard to distinguish… 
 
-Let’s run the code below: 
+<p>
+    Let’s run the code below:
+</p>
 
-```r
+<div class="code-container" style="position: relative;">
+    <button class="copy-button" onclick="copyCode('code-block-4')" style="position: absolute; top: 10px; right: 10px; background-color: #4CAF50; color: white; border: none; padding: 10px; border-radius: 5px;">Copy contents</button>
+    <pre id="code-block-4">
 # Use ggraph to visualize the food web again, but make it prettier
 food_web_network <- ggraph(food_web_plot, layout = 'fr') +  # Fruchterman-Reingold layout tends to cluster interacting species together
   geom_edge_link(
@@ -486,8 +490,12 @@ food_web_network <- ggraph(food_web_plot, layout = 'fr') +  # Fruchterman-Reingo
   theme(plot.title = element_text(hjust = 0.5))  # Center the title
 # View the plot 
 print(food_web_network)
-```
-Click `Zoom` in the `Plots` tab for a clearer view, and it should look like this now. 
+    </pre>
+</div>
+
+<p>
+    Click <code>Zoom</code> in the <code>Plots</code> tab for a clearer view, and it should look like this now.
+</p>
 
 <center><img src="figures/pretty_food_web.jpeg" alt="Img"></center>
 
