@@ -105,8 +105,9 @@ To start off, create a new R script with a few lines of information at the top a
         /* Style for the container holding the code block */
         .code-container {
             position: relative;
-            display: inline-block;
-            margin: 20px;
+            display: block; /* Changed from inline-block to block to stretch the container */
+            width: 100%; /* Ensure the container takes up the full width */
+            margin: 20px 0; /* Space around the container */
         }
 
         /* Style for the copy button */
@@ -132,8 +133,9 @@ To start off, create a new R script with a few lines of information at the top a
             font-family: monospace;
             white-space: pre-wrap; /* Ensures long lines wrap inside the box */
             word-wrap: break-word; /* Ensures words break correctly */
-            width: auto; /* Default width based on content */
-            max-width: 100%; /* To prevent stretching beyond container */
+            width: 100%; /* Ensures it stretches to 100% of the container */
+            max-width: 100%; /* Prevents the box from growing beyond the container */
+            box-sizing: border-box; /* Ensures padding is included in the width */
         }
     </style>
 </head>
