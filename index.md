@@ -1,6 +1,28 @@
-<center><img src="{{ site.baseurl }}/tutheaderbl.png" alt="Img"></center>
+<div style="position: relative; display: inline-block; width: 100%; max-width: 800px;">
+    <img src="figures/freshwater_ecosystem.jpg" alt="Freshwater Ecosystem" style="width: 100%; height: auto;">
+    <div style="
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 48px;
+        font-weight: bold;
+        text-align: center;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    ">
+        Manipulating, Visualising, and Statistically Interpreting Food Web Data on R
+    </div>
+    <div style="
+        text-align: center;
+        font-size: 14px;
+        color: #555;
+        margin-top: 5px;
+    ">
+        Photo by Jason Patrick Ross
+    </div>
+</div>
 
-To add images, replace `tutheaderbl1.png` with the file name of any image you upload to your GitHub repository.
 
 ## Manipulating, Visualising and Statistically Interpreting Food Web Data on R
 
